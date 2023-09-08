@@ -1,0 +1,78 @@
+{% extends "coupons/coupons.html" %}
+
+
+{% block coupons %}
+
+<div class="p-5">
+    <div class="d-flex flex-column align-items-center" style="width: 100%;">
+        <form style="width: 60%;" action="" method="post">
+            {% csrf_token %}
+            <h4>add coupon</h4>
+           <!-- coupons code -->
+            <div class="form-outline mb-4">
+              <input name="coupon_code" type="text" id="coupon_inp" class=" form-control"/>
+              <label class="form-label" for="form4Example1">coupon code</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input name="coupon_discount" type="number" id="form4Example1" class=" form-control"/>
+              <label class="form-label" for="form4Example1">discount</label>
+            </div>
+
+            <div class="mb-4">
+                <label for="">discount type</label>
+              <select name="discount_type" id="">
+                <option value="amount">fixed amount</option>
+                <option value="percentage">percentage</option>
+              </select>
+
+              <label class="ms-3" for="public_coupon">Public coupon</label>
+              <input type="checkbox" value="True" id="public_coupon" name="public_coupon">
+
+            </div>
+
+            <div class="form-outline mb-4">
+              <input name="required_amount" value="" type="text" id="form4Example1" class=" form-control"/>
+              <label class="form-label" for="form4Example1">required amount</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input name="max_discount"  type="text" id="form4Example1" class="form-control"/>
+                <label class="form-label" for="form4Example1">maximum discount</label>
+              </div>
+  
+              <div class=" mb-4">
+                <label for="dateInput">valid from</label>
+                <input name="valid_from_date" type="date" id="dateInput" class=" form-control"/>
+              </div>
+
+              <div class=" mb-4">
+                <label for="dateInput">valid to</label>
+                <input name="valid_to_date" type="date" id="dateInput" class=" form-control"/>
+              </div>
+
+              
+              {% if error %}
+                    <p class="text-danger">{{error}}</p>
+              {% endif %}
+            <!-- Submit button -->
+            <input type="submit" class="w-100 btn btn-primary btn-block mb-4">
+          </form>
+    </div> 
+</div>
+
+<script>
+    const inputElement = document.getElementById('coupon_inp');
+    const dateInput = document.getElementById('dateInput');
+
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+
+    inputElement.addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+    });
+    
+    
+</script>
+  
+{% endblock coupons %}

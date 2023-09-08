@@ -1,0 +1,309 @@
+{% extends "user_dashboard.html" %}
+
+{% block user_profile_sidebar %}
+<aside class="col-md-4 col-lg-3">
+
+<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'user_orders' %}">Orders</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'user_wallet' %}">wallet</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_address' %}" >Adresses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_personal_details' %}">Account Details</a>
+    </li>  
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_password_reset' %}">reset password</a>
+    </li> 
+    <li class="nav-item">
+        <a class="text-danger nav-link" href="#"  type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModalCenter">Log Out</a>
+    </li>  
+    </ul>              
+</aside>      
+{% endblock user_profile_sidebar %}
+
+
+{% block user_profile %}
+    
+     
+         <div class="col-sm-12 col-md-8 pl-2 ml-md-5 ">
+
+        <h4>order details</h4>            
+    <table class="table table-cart table-mobile mb-4">
+                <tr class="">
+                    {% if order.status == 'pending' %}
+                        <th> order placed on {{ order.order_date }}</th>
+
+                    {% elif order.status == 'cancelled' %}
+                        <th> order cancelled on {{ order.status_modified_date|date }}</th>
+                    
+
+                    {% elif order.status == 'delivered' %}
+                        <th> delivered on {{ order.status_modified_date|date }}</th>
+
+                    {% elif order.status == 'returned' %}
+                        <th> order returned on {{ order.return_date|date }}</th>
+
+                    {% elif order.status == 'shipped' %}
+                        <th> expected delivery {{ order.status_modified_date|date }}</th>
+                    {% endif %}
+                    <!-- <th>expeted delivery {{ order.status_modified_date|date:"F d, Y" }}</th> -->
+                    <th>price</th>
+                    <th>total amount</th>
+                </tr>
+        {% for item in order.order_items_set.all %}
+            <tr class="" style="cursor: pointer;">
+                
+                <td class="product-col">
+                    <a href="">
+                    <div class="product">
+                        <figure class="product-media">
+                            <a href="">
+                                <img src="{{ item.product.image_1.url }}" alt="Product image">
+                            </a>
+                        </figure>
+
+                       <a href=""> <h4 class="product-title">
+                            <a href="">{{ item.product }}</a>
+                            <p>size : {{ item.size }}</p>
+                            <p>quantity : {{ item.quantity }}</p>
+                        </h4><!-- End .product-title --></a>
+                    </div><!-- End .product --> 
+                    </a>
+                </td>
+
+                <td class="total-col" style="width: 20%;">
+                    ₹{{ item.price }}
+                </td>
+                <td class="total-col" style="width: 20%;">
+                    ₹ {{ item.total_price }}
+                </td>
+        
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table><!-- End .table table-wishlist --> 
+
+    <div class="row my-4">
+        <div class="col-12 text-center text-sm-left col-md-6">
+            <h6 class="text-decoration-underline">delivery address</h6>
+            <div style="position: relative;" class=" bg-white border-0">               
+                <p><span style="font-weight: 500;">name: </span>{{ order_address.name }}</p>
+                <p><span style="font-weight: 500;">address: </span> {{ order_address.address }}</p>
+                <p><span style="font-weight: 500;">landmark: </span> {{ order_address.landmark }}</p>
+                <p><span style="font-weight: 500;">place: </span> {{ order_address.place }}, {{ order_address.city }}, {{ order_address.state }} {{ order_address.pincode }}</p>
+                <p><span style="font-weight: 500;">phone: </span> +91{{ order_address.phone }}</p>
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
+            <h6>order summary</h6>
+            <table class="w-100">
+                <tr>
+                    <td class="col" style="font-weight: 400; font-size: medium;">Subtotal</td>
+                    <td  class="col" style="font-weight: 400;">₹{{ sub_total }}</td>
+                </tr>
+                <tr>
+                    <td class="col" style="font-weight: 400; font-size: medium;">payment method</td>
+                    <td style="width: 100%;" class="col">{{ order.payment_method }}</td>
+                </tr>
+                {% if order.coupon_applied == True %}
+                <tr>
+                    <td class="col" style="font-weight: 400; font-size: medium;">coupon applied</td>
+                    <td style="width: 100%;" class="col">-₹{{ coupon_discount }}</td>
+                </tr>
+                {% endif %}
+
+
+                <tr>
+                    <td  style="font-weight: 400; font-size: medium;" class="col">Shipping</td>
+                    <td class="col">free</td>
+                </tr>
+            
+                <tr class="mt-3">
+                    <td  style="font-weight: 500; font-size: medium;" class="col">total</td>
+                    <td style="font-weight: 500; font-size: medium;" class="col">₹{{ order.total_amount }}</td>
+                </tr>
+            </table>
+            {% if order.status == 'delivered' %}
+                <div class="mt-2">
+                    <a href="{% url 'download_invoice' order.id %}">
+                        <button class="btn btn-dark">Download invoice</button>
+                    </a>
+                    </div>
+            {% endif %}
+            
+        </div>
+    </div>
+
+    <div class="my-5">
+    <h5>
+        delivery & returns
+    </h5>
+    <p>
+        We hope you'll love every purchase, but if you ever need to return an item you can do so within 7 days of receipt. For further assistance, contact our customer support team. We're here to help!*
+    </p>
+
+    <div class="mt-4">
+    <h6 class="">ordered date : {{ order.order_date|date }}</h6>
+
+    {% if order.status == 'delivered' %}
+    <h6 class="text-success">delivered date : {{ order.status_modified_date|date }}</h6>
+
+        {% if return_expire_date > time_now %}
+            <h6 class="text-danger">return expiry date : {{ order.return_date|date }}</h6>
+        {% else %}
+            <h6 class="text-danger">return expired on : {{ order.return_date|date }}</h6>
+            {% endif %}
+
+    {% elif order.status == 'shipped' %}
+    <h6 class="text-success">expected delivery before : {{ order.status_modified_date|date }}</h6>
+    {% endif %}
+    </div>
+
+
+       <!-- Button order cancel modal -->
+   {% if order.status == 'cancelled' %}
+
+   <h6 class="text-danger">order cancelled on : {{ order.status_modified_date }}</h6>
+
+   {% elif order.status == 'delivered' %}
+        {% if return_expire_date > time_now %}
+        <button id="loadButton" type="button" class="btn btn-danger " data-toggle="modal" data-target="#example">
+            return product
+        </button>
+        {% endif %}
+
+    {% elif order.status == 'returned' %}
+    <h6 class="text-danger">products returned on : {{ order.return_date }}</h6>
+    
+    {% else %}
+            <button id="loadButton" type="button" class="btn btn-danger " data-toggle="modal" data-target="#exampleModal">
+                cancel order
+            </button>
+     
+   {% endif %}
+    
+
+    <!-- cancel order modal  -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body m-5 ">
+                <form action="{% url 'cancel_order' order.id %}" method="post">
+                    {% csrf_token %}
+                 <h5 class="text-center">Are you sure? please describe why</h5>
+                 <div class="mt-3">
+                    <p id="errorMessage" class="text-danger text-center" style="display: none;">please fill reason and message</p>
+                 <select class="form-control m-0" name="cancel_reason" id="cancel_reason_id">
+                    <option disabled value="" selected>select reason</option>
+                    <option value="late delivery">late delivery</option>
+                    <option value="changed mind">changed mind</option>
+                    <option value="price too high">price too high</option>
+                 </select>
+                 <br>
+                 <p>send message</p>
+                 <textarea name="cancel_messsage" id="cancel_messsage_id" class="form-control mb-3"></textarea>
+                 
+                </div>
+                
+                <div class="text-center">
+                <a href=""><button type="button" class="btn btn-dark">close</button></a>
+                <button type="submit" class="btn btn-danger" id="cancel_order_btn">Cancel order</button>
+            </div>
+            </form>
+            </div>
+          </div>
+        </div>  
+      </div>           
+
+    <!-- return order modal  -->
+    <div class="modal fade" id="example" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body m-5">
+                <form action="{% url 'order_return' order.id %}" method="post">
+                    {% csrf_token %}
+                 <h5 class="text-center">Are you sure? please describe why</h5>
+                 <p style="font-size: small;" class="text-center text-sm">When you cancel or return a product, the refunded amount will be added to your wallet. You can use this balance for future purchases whenever you'd like.</p>
+                 <div class="mt-3">
+                    <p id="returnErrorMessage" class="text-danger text-center" style="display: none;">please fill reason and message</p>
+                 <select class="form-control m-0" name="return_reason" id="return_reason_id">
+                    <option disabled value="" selected>select reason</option>
+                    <option value="quality issues">quality issues</option>
+                    <option value="size issue">size issue</option>
+                    <option value="wrong product">wrong product</option>
+                    <option value="other">other</option>
+                 </select>
+                 <br>
+                 <p>send message</p>
+                 <textarea name="return_messsage" id="return_messsage_id" class="form-control mb-3"></textarea>
+                </div>
+                
+                <div class="text-center">
+                <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close">close</button>
+                <button type="submit" class="btn btn-danger" id="return_order_btn">Return</button>
+            </div>
+            </form>
+         </div>
+          </div>
+        </div>  
+      </div>                                          
+</div>
+
+
+</div> 
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        
+        $('#return_order_btn').click(function(event){
+            cancel_message = $('#return_messsage_id').val()
+            cancel_reason = $('#return_reason_id').val()
+
+            if (cancel_message == '' || cancel_reason == ''){
+                event.preventDefault();
+                $('#returnErrorMessage').slideDown();
+            }
+            else{
+                $('#errorMessage').css('display', 'none');
+            }
+        })
+
+        $('#cancel_order_btn').click(function(event){
+            cancel_message = $('#cancel_messsage_id').val()
+            cancel_reason = $('#cancel_reason_id').val()
+
+            if (cancel_message == '' || cancel_reason == ''){
+                event.preventDefault();
+                $('#errorMessage').slideDown();
+            }
+            else{
+                $('#errorMessage').css('display', 'none');
+            }
+        })
+
+    })
+</script>
+
+{% endblock user_profile %}

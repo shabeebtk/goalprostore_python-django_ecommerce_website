@@ -1,0 +1,180 @@
+{% extends "products/manage_products.html" %}
+
+
+{% block products %}
+
+ <!-- add product  -->
+ <div class="d-flex flex-column align-items-center pt-5" style="width: 100%;">
+    <form style="width: 70%;" action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <h4>add product</h4>
+       <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input name="product_name" type="text" id="form4Example1" class="w-100 form-control"/>
+          <label class="form-label" for="form4Example1">product name</label>
+        </div>
+        <div class="form-outline mb-4 d-flex gap-2">
+            <div class="w-50">
+            <label class="form-label" for="form4Example1">category</label><br>
+            <select name="product_category" style="height: 5vh; color: #4f4f4f;" class="browser-default custom-select w-100" id="category">
+                <option selected disabled>choose category</option>
+                {% for category in all_category %}
+                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+
+            <div class="w-50">
+            <label class="form-label" for="form4Example1">brand</label>
+            <select name="product_brand" style="height: 5vh; color: #4f4f4f;" class="browser-default custom-select w-100" id="brand">
+                <option selected disabled>choose brand</option>
+                {% for brand in all_brands %}
+                <option value="{{ brand.id }}">{{ brand.brand_name }}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="form4Example1">description</label>
+            <textarea class="form-control" name="product_description" id="form4Example1" cols="30" rows="4" id="form4Example1"></textarea>
+        </div>
+        <div class="mb-5">
+            <label class="form-label" for="form4Example1">price</label> 
+            <input name="product_price" placeholder="₹" type="number" id="form4Example1" step="0.01" class="w-25 form-control"/> 
+        </div>
+        
+        <p>add stocks:</p>
+        <div class="form-outline mb-4">
+            <div id="jersey_sizes" class="d-none">
+            <div class="row">
+            <div class="col-3">
+                <label for="">small</label> <br>    
+                <input style="color: #000000;" name="small_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">medium</label> <br>
+                <input style="color: #000000;" name="medium_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">large</label> <br>
+                <input style="color: #000000;" name="large_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div >
+            <div class="col-3">
+                <label for="">x large</label> <br>
+                <input style="color: #000000;" name="xlarge_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            </div>
+            <br>
+        </div>
+    
+
+        <div id="shoe_sizes" class="d-none">
+        <div class="mb-5 row">
+            
+            <div class="col-3">
+                <label for="">7</label> <br>
+                <input style="color: #000000;" name="7_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">8</label> <br>
+                <input style="color: #000000;" name="8_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">9</label> <br>
+                <input style="color: #000000;" name="9_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">10</label> <br>
+                <input style="color: #000000;" name="10_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+        </div>
+    </div>
+    <div id="size_5" class="d-none">
+        <label for="">5</label> <br>
+        <input style="color: #000000;" name="5_stock" type="number" min="0" id="form4Example1" class="w-25"/>
+    </div>
+    </div>
+
+      
+        <!-- image input -->
+    <div class="row">
+            
+        <div class=" mb-4 col-6">
+            <label class="form-label" for="form4Example1">product image 1</label>
+            <input class="form-control" name="product_image_1" type="file" id="imaged" required >
+        </div>
+
+        <div>
+            <img id="image" src="../static/img/mdb-favicon.ico" alt="">
+        </div>
+        
+        <div class=" mb-4 col-6">
+            <label class="form-label" for="form4Example1">product image 2</label>
+            <input class="form-control" name="product_image_2" type="file" id="form4Example1" required >
+        </div>
+        
+        <div class=" mb-4 col-6">
+            <label class="form-label" for="form4Example1">product image 3</label>
+            <input class="form-control" name="product_image_3" type="file" id="form4Example1" required >
+        </div>
+        
+        <div class=" mb-4 col-6">
+            <label class="form-label" for="form4Example1">product image 4</label>
+            <input class="form-control" name="product_image_4" type="file" id="form4Example1" required >
+        </div>
+    </div>
+        <!-- Submit button -->
+        <input type="submit" class="w-25 btn btn-primary btn-block mb-4" value="add">
+      </form>
+</div> 
+
+
+
+
+
+
+<!-- image crop  -->
+<!-- --------------------------------------------------------------------------- -->
+
+<style type="text/css">
+    img {
+        display: block;
+        max-width: 100%;
+    }
+    .preview {
+        overflow: hidden;
+        width: 160px; 
+        height: 160px;
+        margin: 10px;
+        border: 1px solid red;
+    }
+    
+</style>
+
+
+<!-- ---------------------------------------------------------------------------  -->
+
+<script>
+    document.getElementById('category').addEventListener('change', function() {
+      var selectedCategory = this.value;
+      var jerseySizesDiv = document.getElementById('jersey_sizes');
+      var shoeSizesDiv = document.getElementById('shoe_sizes');
+      var size_5 = document.getElementById('size_5');
+
+      jerseySizesDiv.classList.add('d-none');
+      shoeSizesDiv.classList.add('d-none');
+      size_5.classList.add('d-none')
+
+      if (selectedCategory === '6' || selectedCategory === '2' ) {
+        jerseySizesDiv.classList.remove('d-none');
+    } else if (selectedCategory === '4') {
+        shoeSizesDiv.classList.remove('d-none');
+    }else{
+        size_5.classList.remove('d-none');
+    }
+});
+
+    
+  </script>
+  
+{% endblock products %}

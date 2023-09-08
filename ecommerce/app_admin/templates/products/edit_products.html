@@ -1,0 +1,172 @@
+{% extends "products/manage_products.html" %}
+
+{% block products %}
+<style>
+  #img-preview img {  
+    width: 20vh;
+    height: 20vh; 
+    display: block;   
+  }
+</style>
+
+<!-- edit product  -->
+<div class="d-flex flex-column align-items-center pt-5 pb-5" style="width: 100%;">
+    <form style="width: 70%;" action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <h4>edit product</h4>
+       <!-- product name input -->
+        <div class="form-outline mb-4">
+          <input name="product_name" value="{{ edit_product.product_name }}" type="text" id="form4Example1" class="w-100 form-control"/>
+          <label class="form-label" for="form4Example1">product name</label>
+        </div>
+        <!-- category  -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form4Example1">category</label><br>
+            <select name="product_category" style="height: 5vh; color: #4f4f4f;" class="browser-default custom-select w-100" id="category">
+                <option selected disabled>{{ edit_product.category }}</option>
+                {% for category in all_category %}
+                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- brands  -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form4Example1">brand</label>
+            <select name="product_brand" style="height: 5vh; color: #4f4f4f;" class="browser-default custom-select w-100" id="category">
+                <option selected disabled>{{ edit_product.brand }}</option>
+                {% for brand in all_brands %}
+                <option value="{{ brand.id }}">{{ brand.brand_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <!-- discription  -->
+        <div class="form-outline mb-4 border border-2 rounded">
+            <small>discription</small>
+            <textarea class="form-control" name="product_description" id="form4Example1" cols="30" rows="4" id="form4Example1">{{ edit_product.description }}</textarea>
+        </div>
+        <!-- price  -->
+        <div class="form-outline mb-4 border border-2 rounded w-25">
+            <small>price</small>
+            <input value="{{ edit_product.price }}" name="product_price" type="number" id="form4Example1" step="0.01" class="w-100 form-control"/>
+        </div>
+        
+
+        <!-- stock  -->
+        <p>add stocks:</p>
+        <div class="form-outline mb-4">
+          <div id="jersey_sizes">
+            <div class="row">
+            <div class="col-3">
+                <label for="">small</label> <br>    
+                <input style="color: #000000;" value="{{small}}" name="small_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">medium</label> <br>
+                <input style="color: #000000;" value="{{medium}}" name="medium_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-3">
+                <label for="">large</label> <br>
+                <input style="color: #000000;" value="{{large}}" name="large_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div >
+            <div class="col-3">
+                <label for="">x large</label> <br>
+                <input style="color: #000000;" value="{{xlarge}}" name="xlarge_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            </div>
+            <br>
+          </div>
+
+          <div id="shoe_sizes">
+        <div class="mb-5 row">
+            
+            <div class="col-2">
+                <label for="">7</label> <br>
+                <input style="color: #000000;" value="{{size_7}}" name="7_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-2">
+                <label for="">8</label> <br>
+                <input style="color: #000000;" value="{{size_8}}" name="8_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-2">
+                <label for="">9</label> <br>
+                <input style="color: #000000;" value="{{size_9}}" name="9_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+            <div class="col-2">
+                <label for="">10</label> <br>
+                <input style="color: #000000;" value="{{size_10}}" name="10_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+            </div>
+        </div>
+      </div>
+      <div class="d-none" id="size_5">
+        <label for="">5</label> <br>
+      <input style="color: #000000;" value="{{size_5}}" name="5_stock" type="number" min="0" id="form4Example1" class="w-50 "/>
+      </div>
+    </div>
+     
+        <br>
+        <!-- image input -->
+        <div class="row">
+        
+        <div class="form-outline mb-4 col-12 col-md-6">
+            <label class="form-label" for="form4Example1">product image 1</label>
+            <div id="img-preview_1" style="height: 20vh; width: 20vh;">
+              <img style="width: 20vh;" src="{{ edit_product.image_1.url }}" alt="">
+            </div>
+            <input class="form-control" id="choose-file_1" name="category_image" type="file" accept="image/*">
+          </div>
+        
+        <div class="form-outline mb-4 col-12 col-md-6">
+            <label class="form-label" for="form4Example1">product image 2</label>
+            <div id="img-preview_2" style="height: 20vh; width: 20vh;">
+              <img style="width: 20vh;" src="{{ edit_product.image_2.url }}" alt="">
+            </div>
+            <input class="form-control" id="choose-file_2" name="category_image" type="file" accept="image/*">
+          </div>
+        
+        <div class="form-outline mb-4 col-12 col-md-6">
+            <label class="form-label" for="form4Example1">product image 3</label>
+            <div id="img-preview_3" style="height: 20vh; width: 20vh;">
+              <img style="width: 20vh;" src="{{ edit_product.image_3.url }}" alt="">
+            </div>
+            <input class="form-control" id="choose-file_3" name="category_image" type="file" accept="image/*">
+          </div>
+        
+        <div class="form-outline mb-4 col-12 col-md-6">
+            <label class="form-label" for="form4Example1">product image 4</label>
+            <div id="img-preview_4" style="height: 20vh; width: 20vh;">
+              <img style="width: 20vh;" src="{{ edit_product.image_4.url }}" alt="">
+            </div>
+            <input class="form-control" id="choose-file_4" name="category_image" type="file" accept="image/*">
+          </div>
+        </div>
+        <br>
+        <div class="d-flex justify-content-center">
+        <input type="submit" class="btn btn-primary btn-sm w-25" value="save changes">
+    </div>
+    </form>
+    <br>
+    </div>
+
+       <!-- show sizes according to category -->
+    <script>
+      var category = document.getElementById('category').value;
+      var jerseySizesDiv = document.getElementById('jersey_sizes');
+      var shoeSizesDiv = document.getElementById('shoe_sizes');
+      var size_5 = document.getElementById('size_5');
+      
+      jerseySizesDiv.classList.add('d-none');
+      shoeSizesDiv.classList.add('d-none');
+      size_5.classList.add('d-none');
+
+      if (category == 'jersey' || category == 'shorts') {
+        jerseySizesDiv.classList.remove('d-none');
+      }
+      else if (category == 'football boot'){
+        shoeSizesDiv.classList.remove('d-none');
+      }
+      else{
+        size_5.classList.remove('d-none')
+      }
+
+    </script>
+{% endblock products %}

@@ -1,0 +1,327 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Goal pro admin</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+    crossorigin="anonymous"></script>
+    <style>
+      #img-preview img {  
+        width: 100%;
+        height: 100%; 
+        display: block;   
+      }
+    </style>
+</head>
+
+<body>
+  <!--Main Navigation-->
+  <header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="{% url 'admin_home' %}" class="list-group-item list-group-item-action py-2 ripple ">
+            <i class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
+          </a>
+         <a href="{% url 'manage_users' %}" class="list-group-item list-group-item-action py-2 ripple "><i
+            class="fas fa-users fa-fw me-3"></i><span>Users</span>
+          </a>
+          <a href="{% url 'manage_products' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-pie fa-fw me-3"></i><span>Products</span>
+          </a>
+          <a href="{% url 'manage_category' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fab fa-buromobelexperte fa-fw me-3"></i><span>Categories</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-circle-check fa-fw me-3"></i><span>Brands</span>
+          </a>
+          <a href="{% url 'manage_coupons' %}" class="list-group-item list-group-item-action py-2 ripple "><i
+            class="fas fa-money-bill fa-fw me-3"></i><span>Coupons</span>
+          </a>
+          <a href="{% url 'manage_orders' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span>
+          </a>
+          <a href="{% url 'manage_banners' %}" class="list-group-item list-group-item-action py-2 ripple active">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Banners</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+              class="far fa-address-card fa-fw me-3"></i><span>profile</span></a>
+         
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">
+          <img src="" height="" alt="" loading="lazy" />
+        </a>
+        
+
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Notification dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
+              role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+              <span class="badge rounded-pill badge-notification bg-danger">1</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              
+            </ul>
+          </li>
+
+          <!-- Icon -->
+          <li class="nav-item">
+            <a class="nav-link me-3 me-lg-0" href="#">
+              <i class="fas fa-fill-drip"></i>
+            </a>
+          </li>
+          <!-- Icon -->
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+
+          <!-- Icon dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdown" role="button"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="united kingdom flag m-0"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="united kingdom flag"></i>English
+                  <i class="fa fa-check text-success ms-2"></i></a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="poland flag"></i>Polski</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="china flag"></i>中文</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="japan flag"></i>日本語</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="germany flag"></i>Deutsch</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="france flag"></i>Français</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="spain flag"></i>Español</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="russia flag"></i>Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="portugal flag"></i>Português</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+              id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
+                alt="" loading="lazy" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">My profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+        <div class="p-md-5">
+
+          {% block banner %}
+          <div class="d-flex justify-content-end">
+          <button type="button" data-mdb-toggle="modal" data-mdb-target="#exampleModal" class="btn btn-primary btn-sm mb-3 ">new banner +</button>
+        </div>
+
+        <!-- new banner modal  -->
+        <!-- Button trigger modal -->
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">create a banner</h5>
+                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="{% url 'add_banner' %}" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+                <div class="modal-body">
+                  <!-- -------body---  -->
+                  
+                  <div class="form-outline mb-4">
+                    <input name="title" value="" type="text" placeholder="category" id="form4Example1" class="form-control"/>
+                    <label class="form-label" for="form4Example1">title</label>
+                  </div>
+        
+                  <div class="form-outline mb-4">
+                    <textarea class="form-control" name="description" id=""></textarea>
+                    <label class="form-label" for="form4Example1">description</label>
+                  </div>
+
+                  <div class="form-outline mb-4 ">
+                    <div id="img-preview">
+                    </div>
+                    <input class="form-control" id="choose-file" name="image" type="file" accept="image/*">
+                  </div>
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">image</th>
+                    <th scope="col">title</th>
+                    <th scope="col">description</th>
+                    <th scope="col">edit/delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for banner in banners %}
+                    <tr>
+                        <th>
+                            <img class="w-100 h-100" src="{{ banner.image.url }}" alt="{{ banner.title }}">
+                        </th>
+                        <td>{{ banner.title }}</td>
+                        <td>{{ banner.description }}</td>
+                        <td style="display: flex; column-gap: 2vh;">
+                          <a href="{% url 'edit_banner' banner.id %}">
+                            <button class="btn btn-sm btn-primary">edit</button>
+                          </a>
+                          <form id="myForm">
+                            {% csrf_token %}
+                              <button class="btn btn-sm btn-danger unlist-button" data-banner-id="{{ banner.id }}" >
+                            {% if banner.active %}
+                                unlist
+                            {% else %}
+                                show
+                            {% endif %}
+                          </button>
+                        </form>
+                        </td>
+                      
+                    </tr>
+                    {% endfor %}                 
+                </tbody>
+              </table>
+              {% endblock banner %}
+        
+      </div>
+  </main>
+
+  <!-- ajax banner -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+        $('.unlist-button').click(function (event) {
+          event.preventDefault();
+            var bannerId = $(this).data('banner-id');
+            var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
+            $.ajax({
+                url: '{% url "show_unlist_banner" %}',
+                type: 'POST',
+                headers : {'X-CSRFToken': csrfToken},
+                data: {
+                    banner_id: bannerId
+                },
+                success: function (data) {
+                    if (data.success) {
+                        console.log('success')
+                    } else {
+                        console.log('banner failed')
+                    }
+                },
+                error: function () {
+                    console.log('unable to update banner')
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+  const chooseFile = document.getElementById("choose-file");
+  const imgPreview = document.getElementById("img-preview");
+
+  chooseFile.addEventListener("change", function () {
+    getImgData();
+  });
+
+  function getImgData() {
+    const files = chooseFile.files[0];
+    if (files) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(files);
+      fileReader.addEventListener("load", function () {
+        imgPreview.style.display = "block";
+        imgPreview.innerHTML = '<img src="' + this.result + '" />';
+      });    
+    }
+  }
+</script>  
+
+  <!--Main layout-->
+  <!-- MDB -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+
+</body>
+
+</html>

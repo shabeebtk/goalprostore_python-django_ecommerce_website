@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Goal pro</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Goal pro">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+    <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/owl-carousel/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/magnific-popup/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery.countdown.css' %}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skins/skin-demo-8.css' %}">
+    <link rel="stylesheet" href="{% static 'css/demos/demo-8.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <style>
+        body {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          margin: 0;
+        }
+        
+        .order-success-box {
+          background-color: #ffffff;
+          padding: 20px;
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          text-align: center;
+        }
+        
+        .success-message {
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+        
+        .view-orders-button {
+          color: #ffffff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          font-size: 18px;
+          cursor: pointer;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="order-success-box" style="padding-top: 5%; padding-bottom: 5%;">
+        <div class="success-message">
+          <h5>Your order has been placed successfully!</h5>
+          <i></i>
+        </div>
+        <a href="{% url 'user_orders' %}" class="btn btn-dark btn-sm">View Orders</a>
+      </div>
+  
+
+    <!-- Plugins JS File -->
+    <script src="{% static 'javascript/jquery.min.js' %}"></script>
+    <script src="{% static 'javascript/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'javascript/jquery.hoverIntent.min.js' %}"></script>
+    <script src="{% static 'javascript/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static 'javascript/superfish.min.js' %}"></script>
+    <script src="{% static 'javascript/owl.carousel.min.js' %}"></script>
+    <!-- Main JS File -->
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+
+
+<!-- molla/dashboard.html  22 Nov 2019 10:03:13 GMT -->
+</html>

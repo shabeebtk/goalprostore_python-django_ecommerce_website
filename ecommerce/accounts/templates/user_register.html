@@ -1,0 +1,227 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/login.html  22 Nov 2019 10:04:03 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Goal pro</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Goal pro">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/icons/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/icons/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/icons/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'images/icons/site.html' %}">
+    <link rel="mask-icon" href="{% static 'images/icons/safari-pinned-tab.svg' %}" color="#666666">
+    <link rel="shortcut icon" href="{% static 'images/icons/favicon.ico' %}">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="{% static 'images/icons/browserconfig.xml' %}">
+    <meta name="theme-color" content="#ffffff">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/owl-carousel/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/magnific-popup/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/plugins/jquery.countdown.css' %}">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/skins/skin-demo-8.css' %}">
+    <link rel="stylesheet" href="{% static 'css/demos/demo-8.css' %}">
+</head>
+
+<body>
+    
+
+            <div class="login-page bg-image" style="background-color: rgb(255, 255, 255);">
+            	<div class="container">
+					<div class="d-flex justify-content-center">
+					<a href="{% url 'user_signin' %}" class="logo">
+						<img style="width: 20vh;" src="{% static 'images/goal_pro_logo_1.png' %}" alt="Molla Logo" width="82" height="20">
+					</a>
+				</div>
+            		<div class="form-box">
+            			<div class="form-tab">
+	            			<ul class="nav nav-pills nav-fill" role="tablist">
+							    <li class="nav-item">
+							        <a class="nav-link" id="signin-tab-2" data-toggle="tab" href="{% url 'user_signin' %}" role="tab" aria-controls="signin-2" aria-selected="false">Sign In</a>
+							    </li>
+							    <li class="nav-item">
+							        <a class="nav-link active" id="register-tab-2" data-toggle="tab" href="#register-2" role="tab" aria-controls="register-2" aria-selected="true">Register</a>
+							    </li>
+							</ul>
+							<div class="tab-content">
+							    <div class="tab-pane fade" id="signin-2" role="tabpanel" aria-labelledby="signin-tab-2">
+							    	<form action="#">
+							    		<div class="form-group">
+							    			<label for="singin-email-2">Username or email address *</label>
+							    			<input type="text" class="form-control" id="singin-email-2" name="singin-email" required>
+							    		</div>
+
+							    		<div class="form-group">
+							    			<label for="singin-password-2">Password *</label>
+							    			<input type="password" class="form-control" id="singin-password-2" name="singin-password" required>
+							    		</div>
+
+							    		<div class="form-footer">
+							    			<button type="submit" class="btn btn-outline-primary-2">
+			                					<span>LOG IN</span>
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+
+			                				<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" id="signin-remember-2">
+												<label class="custom-control-label" for="signin-remember-2">Remember Me</label>
+											</div><!-- End .custom-checkbox -->
+
+											<a href="#" class="forgot-link">Forgot Your Password?</a>
+							    		</div><!-- End .form-footer -->
+							    	</form>
+							    	<div class="form-choice">
+								    	<p class="text-center">or sign in with</p>
+								    	<div class="row">
+								    		<div class="col-sm-6">
+								    			<a href="#" class="btn btn-login btn-g">
+								    				<i class="icon-google"></i>
+								    				Login With Google
+								    			</a>
+								    		</div><!-- End .col-6 -->
+								    		<div class="col-sm-6">
+								    			<a href="#" class="btn btn-login btn-f">
+								    				<i class="icon-facebook-f"></i>
+								    				Login With Facebook
+								    			</a>
+								    		</div><!-- End .col-6 -->
+								    	</div><!-- End .row -->
+							    	</div><!-- End .form-choice -->
+							    </div><!-- .End .tab-pane -->
+
+								<!-- sign up ------- -->
+							    <div class="tab-pane fade show active" id="register-2" role="tabpanel" aria-labelledby="register-tab-2">
+							    	<form action="" method="post">
+										{% csrf_token %}
+										<div class="form-group">
+											<div>
+							    			<label for="singin-email-2">first name</label>
+							    			<input type="text" class="form-control" id="firstname" name="firstname" >
+											<p id="firstname_error" style="color: red;"></p>
+										</div>
+										<div>
+											<label for="singin-email-2">last name</label>
+							    			<input type="text" class="form-control" id="lastname" name="lastname" >
+											<p id="lastname_error" style="color: red;"></p>
+							    		</div>
+
+										<div class="form-group">
+							    			<label for="singin-email-2">Email</label>
+							    			<input type="email" class="form-control" id="email" name="email" >
+											<p id="email_error" style="color: red;"></p>
+							    		</div>
+
+										<div class="form-group">
+							    			<label for="singin-email-2">Phone</label>
+							    			<input type="number" class="form-control" id="phone" name="phone" >
+											<p id="phone_error" style="color: red;"></p>
+							    		</div>
+
+										<div class="form-group">
+							    			<label for="register-password-2">Password</label>
+							    			<input type="password" class="form-control" id="password" name="password" >
+											<p id="password_error" style="color: red;"></p>
+							    		</div>
+
+							    		<div class="form-group">
+							    			<label for="register-password-2">Confirm Password</label>
+							    			<input type="password" class="form-control" id="confirm_password" name="confirm_password" >
+											<p id="confirm_password_error" style="color: red;"></p>
+							    		</div>
+
+							    		<div class="form-footer">
+							    			<button onclick="return validation()" type="submit" class="btn btn-outline-primary-2">
+			                					<span>SIGN UP</span>
+			            						<i class="icon-long-arrow-right"></i>
+			                				</button>
+
+			                				<div class="custom-control custom-checkbox">
+												
+												<!-- <input type="checkbox" class="custom-control-input" id="register-policy-2" required> -->
+												<!-- <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label> -->
+											</div><!-- End .custom-checkbox -->
+					
+							    		</div><!-- End .form-footer -->
+							    	</form>
+							    	<div>
+										<p>already have an account? <a href="{% url 'user_signin' %}">Signin</a></p>
+									</div>
+							    </div><!-- .End .tab-pane -->
+							</div><!-- End .tab-content -->
+						</div><!-- End .form-tab -->
+            		</div><!-- End .form-box -->
+            	</div><!-- End .container -->
+            </div><!-- End .login-page section-bg -->
+        </main><!-- End .main -->
+
+        
+		<script>
+			function validation(){
+			  const username = document.getElementById('firstname').value
+			  const email = document.getElementById('email').value
+			  const phone = document.getElementById('phone').value
+			  const password = document.getElementById('password').value
+			  const confirm_password = document.getElementById('confirm_password').value
+			  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+	
+			if (username == ''){
+			  document.getElementById('firstname_error').innerHTML = " enter firstname"
+			  return false
+			}
+			else if(username.includes(' ')){
+			  document.getElementById('firstname_error').innerHTML = " don't use spaces in username"
+			  return false
+			}
+			else{
+			  document.getElementById('firstname_error').innerHTML = ""
+			}
+	
+			if (email == ''){
+			  document.getElementById('email_error').innerHTML = "enter email"
+			  return false
+			}
+			else if (!emailRegex.test(email)){
+			  document.getElementById('email_error').innerHTML = "invalid email"
+			  return false
+			}
+			else{
+			  document.getElementById('email_error').innerHTML = ""
+			}
+	
+			if (password != confirm_password){
+			  document.getElementById('confirm_password_error').innerHTML = "password should be same"
+			  return false
+			}
+			else{
+			  document.getElementById('confirm_password_error').innerHTML = ""
+			  return true
+			}
+		  }
+		  </script>
+
+    <!-- Plugins JS File -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jquery.hoverIntent.min.js"></script>
+    <script src="assets/js/jquery.waypoints.min.js"></script>
+    <script src="assets/js/superfish.min.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <!-- Main JS File -->
+    <script src="assets/js/main.js"></script>
+</body>
+
+
+<!-- molla/login.html  22 Nov 2019 10:04:03 GMT -->
+</html>

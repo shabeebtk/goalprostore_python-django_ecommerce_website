@@ -1,0 +1,90 @@
+{% extends "coupons/coupons.html" %}
+
+
+{% block coupons %}
+
+<div class="p-5">
+    <div class="d-flex flex-column align-items-center" style="width: 100%;">
+        <form style="width: 60%;" action="" method="post">
+            {% csrf_token %}
+            <h4>add coupon</h4>
+           <!-- coupons code -->
+            <div class="form-outline mb-4">
+              <input name="coupon_code" value="{{edit.coupon_code}}" type="text" id="coupon_inp" class=" form-control"/>
+              <label class="form-label" for="form4Example1">coupon code</label>
+            </div>
+
+            <div class="form-outline mb-4">
+              <input name="coupon_discount" value="{{edit.discount}}" type="number" id="form4Example1" class=" form-control"/>
+              <label class="form-label" for="form4Example1">discount</label>
+            </div>
+
+            <div class=" mb-4">
+                <label for="">discount type</label>
+              <select name="discount_type" id="">
+                <option selected value="{{ edit.discount_type }}">{{ edit.discount_type }}</option>
+                <option value="amount">fixed amount</option>
+                <option value="percentage">percentage</option>
+              </select>
+
+              <label class="ms-3" for="public_coupon">Public coupon</label>
+              {% if edit.public_coupon %}
+              <input type="checkbox" checked value="True" id="public_coupon" name="public_coupon">
+              {% else %}
+              <input type="checkbox" value="True" id="public_coupon" name="public_coupon">
+              {% endif %}
+            </div>
+
+            <div class="form-outline mb-4">
+              <input name="required_amount" value="{{edit.minimum_amount_required}}" type="text" id="form4Example1" class=" form-control"/>
+              <label class="form-label" for="form4Example1">required amount</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input name="max_discount" value="{{edit.maximum_discount}}"  type="text" id="form4Example1" class="form-control"/>
+                <label class="form-label" for="form4Example1">maximum discount</label>
+              </div>
+  
+              <div class=" mb-4">
+                <label for="dateInput">valid from</label>
+                <p>{{ edit.valid_from }}</p>
+                <input name="valid_from_date"  type="date" id="dateInput1" class=" form-control"/>
+              </div>
+
+              <div class=" mb-4">
+                <label for="dateInput">valid to</label>
+                <p>{{ edit.valid_to }}</p>
+                <input name="valid_to_date" type="date" id="dateInput" class="form-control"/>
+              </div>
+
+              
+              {% if error %}
+                    <p class="text-danger">{{error}}</p>
+              {% endif %}
+            <!-- Submit button -->
+            <input type="submit" value="save changes" class="w-100 btn btn-primary btn-block mb-4">
+          </form>
+    </div> 
+</div>
+
+<script>
+    const inputElement = document.getElementById('coupon_inp');
+    const dateInput1 = document.getElementById('dateInput1');
+    const dateInput2 = document.getElementById('dateInput2');
+
+    const today1 = new Date().toISOString().split('T')[0];
+    dateInput1.min = today1;
+
+    const today2 = new Date().toISOString().split('T')[0];
+    dateInput2.min = today2;
+
+    inputElement.addEventListener('input', function() {
+        this.value = this.value.toUpperCase();
+    });
+
+   
+    
+    
+</script>
+  
+{% endblock coupons %}

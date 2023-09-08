@@ -1,0 +1,87 @@
+{% extends "user_dashboard.html" %}
+
+{% block user_profile_sidebar %}
+<aside class="col-md-4 col-lg-3">
+
+<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_orders' %}">Orders</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'user_wallet' %}">wallet</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_address' %}" >Adresses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_personal_details' %}">Account Details</a>
+    </li>  
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_password_reset' %}">reset password</a>
+    </li> 
+    <li class="nav-item">
+        <a class="text-danger nav-link" href="#"  type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModalCenter">Log Out</a>
+    </li>  
+    </ul>              
+</aside>      
+{% endblock user_profile_sidebar %}
+
+
+{% block user_profile %}
+    
+<div class="col-sm-12 col-md-8 pl-2 ml-md-5 ">
+
+    <h4>Your wallet</h4>
+
+    <div class="d-flex justify-content-center my-5 border border-3 shadow">
+        <div class=" p-5 text-center">
+            <h3 class="m-0">₹{{wallet_balance.balance}}</h3>
+            <p style="font-weight: 500;">wallet balance</p>
+        </div>
+    </div>
+
+    <h6 class="mt-5">transaction history:</h6>
+    <div>
+            
+    <table class="table table-cart">
+            {% for transaction in all_transactions %}
+            <tr>
+                <th>
+                    <p>
+                        {% if transaction.status == 'credit' %}
+                            credited on
+
+                        {% elif transaction.status == 'debit' %}
+                            debited on
+                        {% endif %}
+
+
+                    </p>
+                    <p>{{ transaction.date }}</p>
+                </th>
+                
+                <th class="total-col">
+                    {% if transaction.status == 'credit' %}
+                        <p class="text-success" style="font-weight: 400;">+₹{{ transaction.amount }}</p>
+
+                    {% elif transaction.status == 'debit' %}
+                        <p class="text-danger" style="font-weight: 400;">-₹{{ transaction.amount }}</p>
+                    {% endif %}
+                    
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table><!-- End .table table-wishlist -->
+
+    </div>
+    
+ 
+</div>
+  
+{% endblock user_profile %}

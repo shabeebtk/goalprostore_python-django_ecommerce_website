@@ -1,0 +1,358 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Goal pro admin</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!--Main Navigation-->
+  <header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="{% url 'admin_home' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
+          </a>
+          <a href="{% url 'manage_users' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-users fa-fw me-3"></i><span>Users</span>
+          </a>
+          <a href="{% url 'manage_products' %}" class="list-group-item list-group-item-action py-2 ripple ">
+            <i class="fas fa-chart-pie fa-fw me-3"></i><span>Products</span>
+          </a>
+          <a href="{% url 'manage_category' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fab fa-buromobelexperte fa-fw me-3"></i><span>Categories</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-circle-check fa-fw me-3"></i><span>Brands</span>
+          </a>
+          <a href="{% url 'manage_coupons' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-money-bill fa-fw me-3"></i><span>Coupons</span>
+          </a>
+          <a href="{% url 'manage_orders' %}" class="list-group-item list-group-item-action py-2 ripple active">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span>
+          </a>
+          <a href="{% url 'manage_banners' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Banners</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+              class="far fa-address-card fa-fw me-3"></i><span>profile</span></a>
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">
+          <img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="25" alt="" loading="lazy" />
+        </a>
+        <!-- Search form -->
+        <form class="d-none d-md-flex input-group w-auto my-auto">
+          <input autocomplete="off" type="search" class="form-control rounded"
+            placeholder='Search (ctrl + "/" to focus)' style="min-width: 225px" />
+          <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+        </form>
+
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Notification dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
+              role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+              <span class="badge rounded-pill badge-notification bg-danger">1</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Some news</a></li>
+              <li><a class="dropdown-item" href="#">Another news</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Icon -->
+          <li class="nav-item">
+            <a class="nav-link me-3 me-lg-0" href="#">
+              <i class="fas fa-fill-drip"></i>
+            </a>
+          </li>
+          <!-- Icon -->
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#">
+              <i class="fab fa-github"></i>
+            </a>
+          </li>
+
+          <!-- Icon dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdown" role="button"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="united kingdom flag m-0"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="united kingdom flag"></i>English
+                  <i class="fa fa-check text-success ms-2"></i></a>
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="poland flag"></i>Polski</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="china flag"></i>中文</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="japan flag"></i>日本語</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="germany flag"></i>Deutsch</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="france flag"></i>Français</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="spain flag"></i>Español</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="russia flag"></i>Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="portugal flag"></i>Português</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+              id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
+                alt="" loading="lazy" />
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">My profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+
+  
+
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+    {% block products %}
+  <div class="p-4">
+      
+        <h5>order details</h5>
+      <div>
+      <p class="m-0">user : {{ order.user.first_name }}</p>
+      <p class="m-0">user email : {{ order.user.email }}</p>
+      <p class="m-0">order id : {{ order.order_id }}</p>
+      <p class="m-0">date : {{ order.order_date|date }}</p>
+
+      {% if order.status == 'delivered' %}
+        <p class="m-0">status : {{ order.status }}</p>
+        <p class="mb-4">delivered on {{ order.status_modified_date|date }}</p>
+
+      {% elif  order.status == 'cancelled' %}
+        <p class="m-0">status : {{ order.status }}</p>
+        <p class="">cancelled on {{ order.status_modified_date|date }}</p>
+        {% if order_reason.order_status == 'cancel' %}
+            
+            <div class="alert alert-warning" role="alert">
+            <p class="m-0">cancel reason : {{order_reason.reason}}</p>
+            <p class="m-0">message : {{order_reason.message}} </p>
+            </div>
+        {% endif %}
+
+      {% elif  order.status == 'returned' %}
+      <p class="m-0">status : {{ order.status }}</p>
+      <p class="">returned on {{ order.return_date|date }}</p>
+      {% if order_reason %}
+      <div class="alert alert-warning" role="alert">
+        <p class="m-0">return reason : {{order_reason.reason}}</p>
+        <p class="m-0">message : {{order_reason.message}} </p>
+        </div>
+        {% endif %}
+      
+
+      {% else %}
+      <form action="" method="post">
+        {% csrf_token %}
+      order status :
+        <select name="order_status" class="mb-4" id="">
+          <option value="{{ order.status }}" selected disabled>{{ order.status }}</option>
+          <option value="shipped">shipped</option>
+          <option value="delivered">delivered</option>
+          <option value="cancelled">cancel</option>
+        </select>
+        <br>
+        <button class="btn-danger btn-sm text-lg"  type="button" data-mdb-toggle="modal" data-mdb-target="#exampleModal">Save changes</button>
+        
+
+        {% if messages %}
+        {% for message in messages %}
+          <p>{{ message }}</p>
+        {% endfor %}
+        {% endif %}
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">are you sure?</h5>
+                <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-mdb-dismiss="modal">cancel</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      {% endif %}
+      </div>
+      
+
+      <table class="table align-middle mb-0 bg-white">
+          <thead class="bg-light">
+            <tr>
+              <th>ordered products</th>
+              <th>price</th>
+              <th>total amount</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            {% for item in order.order_items_set.all %}
+            <tr>
+
+              <td>
+                <div class="d-flex align-items-center">
+                  <img
+                      src="{{ item.product.image_1.url }}"
+                      alt=""
+                      style="width: 15vh; height: 15vh"
+                      class="rounded-circle"
+                      />
+                  <div class="ms-3">
+                    <p class="fw-bold mb-1">{{ item.product }}</p>
+                    <p class="text-muted mb-0">size : {{ item.size }}</p>
+                    <p class="text-muted mb-0">quantity : {{ item.quantity }}</p>
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <p>₹{{ item.price }}</p>
+              </td>
+              <td>
+                <p>₹{{ item.total_price }}</p>
+              </td>
+              
+              
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="my-5 row">
+          <div class="col-6">
+            <h6 class="mb-3">order address</h6>
+            <div>
+              <div style="position: relative;" class=" border-0">               
+                <p class="m-1"><span style="font-weight: 500;">name: </span>{{ order_address.name }}</p>
+                <p class="m-1"><span style="font-weight: 500;">address: </span> {{ order_address.address }}</p>
+                <p class="m-1"><span style="font-weight: 500;">landmark: </span> {{ order_address.landmark }}</p>
+                <p class="m-1"><span style="font-weight: 500;">place: </span> {{ order_address.place }}, {{ order_address.city }}, {{ order_address.state }}</p>
+                <p class="m-1"><span style="font-weight: 500;">pincode: </span> {{ order_address.pincode }}</p>
+                <p class="m-1"><span style="font-weight: 500;">phone: </span> +91{{ order_address.phone }}</p>
+            </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <h6>order summary</h6>
+            <table class="">
+              <tr class="my-2">
+                  <td class="w-75" style="font-weight: 400; font-size: medium;">Subtotal</td>
+                  <td  class="" style="font-weight: 400;">₹{{ sub_total }}</td>
+              </tr>
+              <tr class="mt-2">
+                  <td class="" style="font-weight: 400; font-size: medium;">payment method</td>
+                  <td style="width: 100%;" class="col">{{ order.payment_method }}</td>
+              </tr>
+
+              {% if order.coupon_applied == True %}
+              <tr class="mt-2">
+                <td class="" style="font-weight: 400; font-size: medium;">coupon applied</td>
+                <td style="width: 100%;" class="col">-₹{{ coupon_discount }}</td>
+              </tr>
+              {% endif %}
+
+              <tr>
+                  <td  style="font-weight: 400; font-size: medium;" class="col">Shipping</td>
+                  <td class="">free</td>
+              </tr>
+          
+              <tr class="mt-3">
+                  <td  style="font-weight: 500; font-size: medium;" class="col">total</td>
+                  <td style="font-weight: 500; font-size: medium;" class="col">₹{{ order.total_amount }}</td>
+              </tr>
+          </table>
+          </div>
+          
+
+        </div>
+      </div>
+
+    {% endblock products %}
+
+
+    
+  </main>
+
+  <!--Main layout-->
+  <!-- MDB -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+
+</body>
+
+</html>

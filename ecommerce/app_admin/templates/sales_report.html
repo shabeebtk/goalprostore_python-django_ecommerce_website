@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <title>sales report Goalpro store</title>
+  
+</head>
+
+<body>
+
+    <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+        <tr>
+          <td height="20"></td>
+        </tr>
+        <tr>
+          <td>
+            <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 10px 10px 0 0;">
+              <tr class="hiddenMobile">
+                <td height="40"></td>
+              </tr>
+              <tr class="visibleMobile">
+                <td height="30"></td>
+              </tr>
+      
+              <tr>
+                <td>
+                  <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <table border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                            <tbody>
+                              <tr>
+                                <td style="width: 200px; font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left;">
+                                  <h4>
+                                    sales report: <br> {{ start_date }} - {{ end_date }}
+                                  </h4>
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    
+                                </td>
+                                <td>
+                                    <h4 style="color: #5b5b5b;">
+                                      &#x20B9; Earnings {{ total }}
+                                    </h4>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+      <!-- -------  -->
+      <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+        <tbody>
+          <tr>
+            <td>
+              <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+                <tbody>
+                  <tr>
+                  <tr class="hiddenMobile">
+                    <td height="60"></td>
+                  </tr>
+                  <tr class="visibleMobile">
+                    <td height="40"></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <table border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                        <tbody>
+                          <tr>
+                            <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 10px 7px 0;" align="left">
+                                order id
+                              </th>
+                              <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="left">
+                                user
+                              </th>
+                              <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="center">
+                                products
+                              </th>
+                              <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                                coupon applied
+                              </th>
+                              
+                              <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                                total amount
+                              </th>
+                              <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                                order status
+                              </th>
+                              <th style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; font-weight: normal; line-height: 1; vertical-align: top; padding: 0 0 7px;" align="right">
+                                  order date
+                                </th>
+                          </tr>
+
+                          
+                          <br><br>
+                          
+                          {% for order in orders %}
+                          <tr>
+                            <td align="left">{{order.order_id}}</td>
+                            <td align="right">{{order.user}}</td>
+                            <td align="center">
+                              {% for item in order.order_items_set.all %}
+                                      <small align="center"> -- {{item.product.product_name}} <br> {{item.product.category}}</small>
+                                  {% endfor %} 
+                          </td>
+                            <td align="right">
+                              {% if order.coupon_applied == True %}
+                                yes
+                              {% else %}
+                                No
+                              {% endif %}
+                              
+                          </td>
+                            
+                            
+                            <td align="right">
+                                {{ order.total_amount }}
+                            </td>
+                            <td align="right">
+                                {{ order.status }}
+                            </td>
+                            <td align="right">
+                                {{ order.order_date|date }}
+                            </td>
+                            
+                          </tr>
+                          {% endfor %}
+
+                          <!-- {% for order in orders %}
+                          <tr>
+                            <td style="font-size: 10px; font-family: 'Open Sans', sans-serif; color: #ff0000;  vertical-align: top; padding:10px 0;" class="article">
+                                {{order.order_id}}
+                            </td>
+                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;"><small>{{ order.user.first_name }}</small></td>
+                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">
+                                
+                                    {% for item in order.order_items_set.all %}
+                                    <p style="width: 100%; font-size: 7px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">
+                                        -- {{item.product}} <br> {{ item.product.category }}
+                                    </p>
+                                    {% endfor %}
+                            </td>
+                            <td style="font-size: 8px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">
+                                {% if order.coupon_applied %}
+                                  <p>yes</p>
+                                {% else %}
+                                    <p>No</p>
+                                {% endif %}
+                                
+                            </td>
+                            <td style="font-size: 8px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">{{ order.total_amount }}</td>
+                            <td style="font-size: 8px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">{{ order.status }}</td>
+                            <td style="font-size: 8px; font-family: 'Open Sans', sans-serif; color: #000000;  line-height: 18px;  vertical-align: top; padding:10px 0;" align="center">{{ order.order_date|date }}</td>
+                          </tr>
+                          
+                          <tr>
+                            <td height="1" colspan="7" style="border-bottom:1px solid #e4e4e4"></td>
+                          </tr>
+                          {% endfor %} -->
+
+                         
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td height="20"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- --------------  -->
+
+      
+
+
+</body>
+
+</html>

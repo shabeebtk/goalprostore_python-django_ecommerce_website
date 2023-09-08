@@ -1,0 +1,204 @@
+{% extends "user_dashboard.html" %}
+
+{% block user_profile_sidebar %}
+<aside class="col-md-4 col-lg-3">
+
+
+<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_orders' %}">Orders</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'user_wallet' %}">wallet</a>
+    </li>
+   
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'user_address' %}" >Adresses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_personal_details' %}">Account Details</a>
+    </li>            
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_password_reset' %}">reset password</a>
+    </li>            
+    <li class="nav-item">
+        <a class="text-danger nav-link" href="#"  type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModalCenter">Log Out</a>
+    </li> 
+{% endblock user_profile_sidebar %}
+
+
+{% block user_profile %}
+
+<div class="col-lg-8">
+    <h2 class="checkout-title">Select address</h2><!-- End .checkout-title -->
+    
+    <style>
+        .delete_address_icon{
+            display: none;
+        }
+        .edit_address_icon{
+            display: none;
+        }
+        .address_div:hover{
+            .edit_address_icon{
+                display: block;
+            }
+            .delete_address_icon{
+                display: block;
+            }
+        }
+    </style>
+    <!-- address details  -->
+    {% for address in all_address %}                              
+    <div style="position: relative;" class="summary address_div border-2 border">
+        <a href="{% url 'edit_address' address.id  %}" ><i class="edit_address_icon fa-solid fa-pen-to-square" style="color: #000000; position: absolute; right: 6%; top: 3%;"></i></a>
+        <a href="{% url 'address_delete' address.id %}"><i class="delete_address_icon fa-solid fa-trash" style="color: #000000;  position: absolute; right: 2%; top: 3%;"></i></a>
+       
+        <p>{{ address.name }}</p>
+        <p>{{ address.address }}</p>
+        <p>{{ address.landmark }}</p>
+        <p>{{ address.place }}, {{ address.city }}, {{ address.state }} {{ address.pincode }}</p>
+        <p>+91{{ address.phone }}</p>
+    </div>
+    {% endfor %}
+
+    <!-- edit_address  -->
+        <div class="modal fade" id="exampleModalCent" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">edit address</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div  class="modal-body p-4">
+                    <form action="" method="post">
+                        {% csrf_token %}
+
+                        {% if address_error %}
+                            <p>{{address_error}}</p>
+                        {% endif %}
+
+                    <div class="">
+                        <label>Name</label>
+                        <input name="address_name" type="text" class="form-control" >
+                    </div><!-- End .col-s -->
+                
+                <label>phone</label>
+                <input name="address_phone" type="number" class="form-control">
+            
+                <label>address</label>
+                <textarea class="w-100 form-control" name="address" id=""></textarea>
+                <label for="">landmark</label>
+                <input class="form-control" type="text" name="address_landmark" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>place</label>
+                        <input name="address_place" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-6">
+                        <label>Pincode</label>
+                        <input name="address_pincode" type="number" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>City</label>
+                        <input name="address_city" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>State</label>
+                        <input name="address_state" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+            </form>
+                        </div>
+                        <div class="modal-footer">
+                        <div class=""><button type="submit" class=" btn btn-dark">Save address</button></div>
+                    
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+
+    <!-- new address  -->
+    <button id="loadButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCente">
+        Create new address   +
+    </button>
+            <!-- create new address modal  -->
+        <div class="modal fade" id="exampleModalCente" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <form action="{% url 'add_address' %}" method="post">
+                    {% csrf_token %}
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Create new address</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div  class="modal-body p-4">
+                    
+
+                        {% if address_error %}
+                            <p>{{address_error}}</p>
+                        {% endif %}
+
+                    <div class="">
+                        <label>Name</label>
+                        <input name="address_name" type="text" class="form-control" >
+                    </div><!-- End .col-s -->
+                
+                <label>phone</label>
+                <input name="address_phone" type="number" class="form-control">
+            
+                <label>address</label>
+                <textarea class="w-100 form-control" name="address" id=""></textarea>
+                <label for="">landmark</label>
+                <input class="form-control" type="text" name="address_landmark" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>place</label>
+                        <input name="address_place" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-6">
+                        <label>Pincode</label>
+                        <input name="address_pincode" type="number" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+        
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>City</label>
+                        <input name="address_city" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>State</label>
+                        <input name="address_state" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                        </div>
+                        <div class="modal-footer">
+                        <div class=""><button type="submit" class=" btn btn-dark">Save address</button></div>
+                    
+                        </div>
+                    </form>
+                    </div>
+                    </div>
+                </div>
+
+
+        
+        </div><!-- End .col-lg-9 -->
+  
+{% endblock user_profile %}

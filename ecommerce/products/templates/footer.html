@@ -1,0 +1,91 @@
+{% load static %}
+<footer class="footer footer-2" style="background-color: #222222;">
+    <div class="footer-middle">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-lg-6">
+                    <div class="widget widget-about">
+                        <h5 class="text-white">Goalpro store</h5>
+                        <p>
+                            Goalpro is your go-to online store for all things football. From top-quality gear for players to fan merchandise, we've got it all. Shop with confidence, knowing you'll find the best football products and expert guidance here. Join us in celebrating the beautiful game!   
+                         </p>
+                        
+                        <div class="widget-about-info">
+                            <div class="row">
+                                <div class="col-sm-6 col-md-4">
+                                    <span class="widget-about-title text-white">Got Question? Call us 24/7</span>
+                                    <a href="tel:8848967775" class="text-white">+91 8848967775</a>
+                                </div><!-- End .col-sm-6 -->
+                                <div class="col-sm-6 col-md-8">
+                                    <span class="widget-about-title text-white">Payment Method</span>
+                                    <figure class="footer-payments">
+                                        <img src="{% static 'images/payments.png' %}" alt="Payment methods" width="272" height="20">
+                                    </figure><!-- End .footer-payments -->
+                                </div><!-- End .col-sm-6 -->
+                            </div><!-- End .row -->
+                        </div><!-- End .widget-about-info -->
+                    </div><!-- End .widget about-widget -->
+                </div><!-- End .col-sm-12 col-lg-3 -->
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="widget">
+                        <h4 class="widget-title text-white">Information</h4><!-- End .widget-title -->
+
+                        <ul class="widget-list">
+                            <li><a href="">About Molla</a></li>
+                            <li><a href="">FAQ</a></li>
+                            <li><a href="">Contact us</a></li>
+                        </ul><!-- End .widget-list -->
+                    </div><!-- End .widget -->
+                </div><!-- End .col-sm-4 col-lg-3 -->
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="widget">
+                        <h4 class="widget-title text-white">Customer Service</h4><!-- End .widget-title -->
+
+                        <ul class="widget-list">
+                            <li><a href="">Payment Methods</a></li>
+                            <li><a href="">Money-back guarantee!</a></li>
+                            <li><a href="">Returns</a></li>
+                            <li><a href="">Shipping</a></li>
+                            <li><a href="">Terms and conditions</a></li>
+                            <li><a href="">Privacy Policy</a></li>
+                        </ul><!-- End .widget-list -->
+                    </div><!-- End .widget -->
+                </div><!-- End .col-sm-4 col-lg-3 -->
+
+                <div class="col-sm-4 col-lg-2">
+                    <div class="widget">
+                        <h4 class="widget-title text-white">My Account</h4><!-- End .widget-title -->
+
+                        <ul class="widget-list">
+                            <li><a href="{% url 'cart' %}">View Cart</a></li>
+                            <li><a href="">My Wishlist</a></li>
+                            <li><a href="{% url 'user_orders' %}">Track My Order</a></li>
+                            <li><a href="">Help</a></li>
+                        </ul><!-- End .widget-list -->
+                    </div><!-- End .widget -->
+                </div><!-- End .col-sm-64 col-lg-3 -->
+            </div><!-- End .row -->
+        </div><!-- End .container -->
+    </div><!-- End .footer-middle -->
+
+    <div class="footer-bottom">
+        <div class="container">
+            <p class="footer-copyright">Copyright © 2023 Goalpro Store. All Rights Reserved.</p><!-- End .footer-copyright -->
+            <ul class="footer-menu">
+                <li><a href="">Terms Of Use</a></li>
+                <li><a href="">Privacy Policy</a></li>
+            </ul><!-- End .footer-menu -->
+
+            <div class="social-icons social-icons-color">
+                <span class="social-label">Social Media</span>
+                <a href="" class="social-icon social-facebook" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                <a href="" class="social-icon social-twitter" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                <a href="" class="social-icon social-instagram" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                <a href="" class="social-icon social-youtube" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                <a href="" class="social-icon social-pinterest" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+            </div><!-- End .soial-icons -->
+        </div><!-- End .container -->
+    </div><!-- End .footer-bottom -->
+</footer><!-- End .footer -->

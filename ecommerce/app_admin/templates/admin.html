@@ -1,0 +1,320 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>Goal pro admin</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts Roboto -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+  <!-- MDB -->
+  <link rel="stylesheet" href="{% static 'css/mdb.min.css' %}" />
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
+    crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <!--Main Navigation-->
+  <header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4">
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+            <i class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
+          </a>
+         <a href="{% url 'manage_users' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-users fa-fw me-3"></i><span>Users</span>
+          </a>
+          <a href="{% url 'manage_products' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-pie fa-fw me-3"></i><span>Products</span>
+          </a>
+          <a href="{% url 'manage_category' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fab fa-buromobelexperte fa-fw me-3"></i><span>Categories</span>
+          </a>
+          <a href="" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-circle-check fa-fw me-3"></i><span>Brands</span>
+          </a>
+          <a href="{% url 'manage_coupons' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-money-bill fa-fw me-3"></i><span>Coupons</span>
+          </a>
+          <a href="{% url 'manage_orders' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span>
+          </a>
+          <a href="{% url 'manage_banners' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Banners</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
+              class="far fa-address-card fa-fw me-3"></i><span>profile</span></a>
+         
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+  
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Brand -->
+        <a class="navbar-brand" href="#">
+          <img src="" height="" alt="" loading="lazy" />
+        </a>
+        
+
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Notification dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
+              role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <!-- <i class="fas fa-bell"></i> -->
+              <span class="badge rounded-pill badge-notification bg-danger"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              
+            </ul>
+          </li>
+
+          <!-- Icon -->
+          <li class="nav-item">
+            <a class="nav-link me-3 me-lg-0" href="#">
+              <!-- <i class="fas fa-fill-drip"></i> -->
+            </a>
+          </li>
+          <!-- Icon -->
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" href="#">
+              <!-- <i class="fab fa-github"></i> -->
+            </a>
+          </li>
+
+          <!-- Icon dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdown" role="button"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              <a href="{% url 'admin_logout' %}"><button class="btn btn-danger">logout</button></a>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#"><i class="united kingdom flag"></i>English
+                  <!-- <i class="fa fa-check text-success ms-2"></i></a> -->
+              </li>
+              <li>
+                <hr class="dropdown-divider" />
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="poland flag"></i>Polski</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="china flag"></i>中文</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="japan flag"></i>日本語</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="germany flag"></i>Deutsch</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="france flag"></i>Français</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="spain flag"></i>Español</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="russia flag"></i>Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"><i class="portugal flag"></i>Português</a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+              id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+              <!-- <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22" -->
+                <!-- alt="" loading="lazy" /> -->
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">My profile</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+
+  {% block dashboard %}
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+    <div class="container pt-4">
+
+      <!--total orders-->
+      <section class="mb-5">
+        <div class="row mb-3">
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fa-solid fa-truck fa-2xl"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>{{ total_orders }}</h3>
+                    <p class="mb-0">Total orders</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fa-solid fa-indian-rupee-sign fa-2xl"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>{{ total_earnings }}</h3>
+                    <p class="mb-0">Total earnings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fa-solid fa-user fa-2xl"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>{{ total_users }}</h3>
+                    <p class="mb-0">Active users</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-sm-6 col-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between px-md-1">
+                  <div class="align-self-center">
+                    <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                  </div>
+                  <div class="text-end">
+                    <h3>{{ total_products }}</h3>
+                    <p class="mb-0">Total products</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <!-- -------------------------------  -->
+      <!-- chart  -->
+      <div class="mb-5">
+        <canvas id="lineBarChart"></canvas>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+      <script>
+        // Data for the line chart
+        var lineChartData = {
+            labels: ["monday", "tuesday", "wednesday", "thursday", "friday", 'saturday', 'sunday'],
+            datasets: [{
+                label: "Line Data",
+                borderColor: "rgba(75, 192, 192, 1)",
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                data: [65, 59, 80, 81, 56, 110],
+                type: 'line'
+            }]
+        };
+
+        // Configuration options
+        var chartOptions = {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        };
+
+        // Get the canvas element
+        var ctx = document.getElementById("lineBarChart").getContext("2d");
+
+        // Create a combined chart
+        var lineBarChart = new Chart(ctx, {
+            type: 'line', // You can set it to 'bar' if you prefer the bar chart to be on top.
+            data: {
+                labels: lineChartData.labels,
+                datasets: [...lineChartData.datasets]
+            },
+            options: chartOptions
+        });
+    </script>
+  </section>
+  <form action="{% url 'download_sales_report' %}" method="get">
+<div class="d-flex justify-content-center">
+  <div style="width: 80%; height: 10vh;" class="bg-light shadow row my-3 pt-3">
+    <div class="col-2">
+  </div>
+    <div class="col-3">
+        <input class="form-control" type="date" name="start_date" id="start_date" required>
+    </div>
+    <div class="col-3">
+      <input class="form-control" type="date" name="end_date" id="end_date" required>
+    </div>
+    <div class="col-3">
+      <button type="submit" class="btn btn-sm btn-success">Download report</button>
+    </div>
+ 
+  </div>
+</form>
+</div>
+
+    </div>
+    {% endblock dashboard %}
+  </main>
+
+  <script>
+    // Get the current date in the format YYYY-MM-DD
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Set the max attribute of the date input fields
+    document.getElementById('start_date').max = currentDate;
+    document.getElementById('end_date').max = currentDate;
+</script>
+  <!--Main layout-->
+  <!-- MDB -->
+  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <!-- Custom scripts -->
+  <script type="text/javascript" src="{% static 'js/admin.js' %}"></script>
+
+</body>
+
+</html>

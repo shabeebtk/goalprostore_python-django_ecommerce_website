@@ -1,0 +1,111 @@
+{% extends "user_dashboard.html" %}
+
+{% block user_profile_sidebar %}
+<aside class="col-md-4 col-lg-3">
+
+
+<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_orders' %}">Orders</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'user_wallet' %}">wallet</a>
+    </li>
+  
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'user_address' %}" >Adresses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_personal_details' %}">Account Details</a>
+    </li>     
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_password_reset' %}">reset password</a>
+    </li>                   
+    <li class="nav-item">
+        <a class="text-danger nav-link" href="#"  type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModalCenter">Log Out</a>
+    </li> 
+{% endblock user_profile_sidebar %} 
+
+{% block user_profile %}
+
+<div class="col-lg-6">
+    <h2 class="checkout-title">edit address</h2><!-- End .checkout-title -->
+    
+    <style>
+        .delete_address_icon{
+            display: none;
+        }
+        .edit_address_icon{
+            display: none;
+        }
+        .address_div:hover{
+            .edit_address_icon{
+                display: block;
+            }
+            .delete_address_icon{
+                display: block;
+            }
+        }
+    </style>
+   
+    <!-- edit_address  -->
+                
+                <div  class="modal-body p-4">
+                    <form action="" method="post">
+                        {% csrf_token %}
+
+                        {% if address_error %}
+                            <p>{{address_error}}</p>
+                        {% endif %}
+
+                    <div class="">
+                        <label>Name</label>
+                        <input name="address_name" type="text" class="form-control" value="{{edit_address.name}}">
+                    </div><!-- End .col-s -->
+                
+                <label>phone</label>
+                <input name="address_phone" type="number" class="form-control" value="{{edit_address.phone}}">
+            
+                <label>address</label>
+                <textarea class="w-100 form-control" name="address" id="">{{edit_address.address}}</textarea>
+                <label for="">landmark</label>
+                <input class="form-control" value="{{edit_address.landmark}}" type="text" name="address_landmark" >
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>place</label>
+                        <input name="address_place" type="text" value="{{edit_address.place}}" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                    <div class="col-sm-6">
+                        <label>Pincode</label>
+                        <input name="address_pincode" type="number" value="{{edit_address.pincode}}" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>City</label>
+                        <input name="address_city" value="{{edit_address.city}}" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+
+                    <div class="col-sm-6">
+                        <label>State</label>
+                        <input name="address_state" value="{{edit_address.state}}" type="text" class="form-control" required>
+                    </div><!-- End .col-sm-6 -->
+                </div><!-- End .row -->
+                <div class="modal-footer">
+                    <a href="{% url 'user_address'  %}"><div class=""><button type="button" class=" btn btn-dark">cancel</button></a></div>
+                <div class=""><button type="submit" class=" btn btn-dark">Save address</button></div>
+            </form>
+                </div>
+            
+                       
+                   
+
+                   
+        </div><!-- End .col-lg-9 -->
+  
+{% endblock user_profile %}

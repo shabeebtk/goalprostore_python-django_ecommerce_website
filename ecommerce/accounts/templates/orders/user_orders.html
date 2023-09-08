@@ -1,0 +1,99 @@
+{% extends "user_dashboard.html" %}
+
+{% block user_profile_sidebar %}
+<aside class="col-md-4 col-lg-3">
+
+<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_dashboard' %}">Dashboard</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'user_orders' %}">Orders</a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link " href="{% url 'user_wallet' %}">wallet</a>
+    </li>
+   
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_address' %}" >Adresses</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_personal_details' %}">Account Details</a>
+    </li>  
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_password_reset' %}">reset password</a>
+    </li> 
+    <li class="nav-item">
+        <a class="text-danger nav-link" href="#"  type="button" class="btn btn-primary d-none" data-toggle="modal" data-target="#exampleModalCenter">Log Out</a>
+    </li>  
+    </ul>              
+</aside>      
+{% endblock user_profile_sidebar %}
+
+
+{% block user_profile %}
+    
+     <div class="col-sm-12 col-md-8 pl-2 ml-md-5 ">
+
+        <h4>all orders</h4>
+    {% for order in user_orders %}
+            
+    <table class="table table-cart table-mobile">
+                <tr class="">
+                    <th>
+                        {% if order.status == 'cancelled' %}
+                            cancelled on {{ order.status_modified_date|date }} 
+                         {% elif order.status == 'delivered' %}
+                            delivered on {{ order.order_date|date }} 
+                        {% else %}
+                            ordered on {{ order.order_date|date }}
+                        {% endif %}
+                         </th>
+                    <!-- <th>expeted delivery {{ order.status_modified_date|date:"F d, Y" }}</th> -->
+                </tr>
+        {% for item in order.order_items_set.all %}
+            <tr class="" style="cursor: pointer;">
+                
+                <td class="product-col">
+                    <a href="{% url 'user_order_details' order.id %}">
+                    <div class="product">
+                        <figure class="product-media">
+                            <a href="{% url 'user_order_details' order.id %}">
+                                <img src="{{ item.product.image_1.url }}" alt="Product image">
+                            </a>
+                        </figure>
+
+                       <a href="{% url 'user_order_details' order.id %}"> <h4 class="product-title">
+                            <a href="{% url 'user_order_details' order.id %}">{{ item.product }}</a>
+                            <p>size : {{ item.size }}</p>
+                            <p>quantity : {{ item.quantity }}</p>
+                        </h4><!-- End .product-title --></a>
+                    </div><!-- End .product --> 
+                    </a>
+                </td>
+
+                {% if order.status == 'cancelled' %}
+
+                <td class="total-col text-danger" style="width: 20%;">
+                    {{ order.status }}
+                </td>
+                {% else %}
+                <td class="total-col" style="width: 20%;">
+                    {{ order.status }}
+                </td>
+                  
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table><!-- End .table table-wishlist -->
+    {% endfor %}
+            
+    
+      
+</div>
+  
+{% endblock user_profile %}
