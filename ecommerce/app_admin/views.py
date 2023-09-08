@@ -106,7 +106,6 @@ def admin_signin(request):
         email = request.POST['admin_email']
         password = request.POST['admin_password']
         user = authenticate(email=email, password=password)
-        print(user)
         if user is not None and user.is_superuser:
             login(request, user)
             return redirect(admin_home)  
@@ -126,7 +125,6 @@ def admin_logout(request):
 def manage_users(request):
     users = CustomUser.objects.filter(is_superuser = False)
     search_user = request.GET.get('search_user')
-    print(search_user)
     if search_user:
         users = CustomUser.objects.filter(
             Q(first_name__icontains=search_user) |
@@ -312,7 +310,6 @@ def edit_product(request, product_id):
        
         
         if edit.category.category_name == "jersey" or edit.category.category_name == "shorts":
-            print('working')     
             product_small = Stock.objects.get(product = edit, size = small_size)
             product_medium = Stock.objects.get(product = edit, size = medium_size)
             product_large = Stock.objects.get(product = edit, size = large_size)
@@ -455,7 +452,6 @@ def order_details(request, order_id):
                 for item in order_products:
                     stock = Stock.objects.get(product = item.product, size = item.size)
                     stock.quantity += item.quantity
-                    print(stock.quantity)
                     stock.save()
             if order_status == 'delivered':
                 order.status_modified_date = datetime.now()
@@ -487,11 +483,9 @@ def crop(request):
 
 @superuser_required
 def upload_image(request):
-    print('done')
     if request.method == 'POST' and request.FILES['croppedImage']:
         image = request.FILES['croppedImage']
         # Process and save the cropped image as needed
-        print('done')
         return JsonResponse({'message': 'Image uploaded and cropped successfully.'})
 
     return JsonResponse({'message': 'Image upload failed.'})
@@ -628,7 +622,6 @@ def add_banner(request):
 def show_unlist_banner(request):
     if request.method == 'POST':
         banner_id = request.POST.get('banner_id')
-        print(banner_id, '---------------------')
         banner = Banners.objects.get(id=banner_id)
         if banner.active:    
             banner.active = False

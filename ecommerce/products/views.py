@@ -120,7 +120,6 @@ def product_profile(request, product_id):
     else:
         cart_count = 0
     total_stock = Stock.objects.filter(product = product).aggregate(stock_count = Sum('quantity'))
-    print(size_stock)
     if request.method == 'POST':
             quantity = request.POST['quantity']
             input_size = request.POST['size']
@@ -173,11 +172,9 @@ def add_to_cart(request, product_id):
             stock = Stock.objects.get(product=product, size=size)
             already_added = product_cart.objects.filter(user=request.user, product=product_id, size=size).exists()
             if already_added is False:
-                print('ok')
                 add_cart = product_cart.objects.create(user=request.user, product=product, quantity=quantity, size=size)
                 add_cart.save()
                 messages.success(request, 'product added to cart')
-                print(messages.SUCCESS)
                 return redirect(product_profile, product_id)
             else:
                 return redirect(product_profile, product_id)
@@ -196,7 +193,6 @@ def increment_quantity(request, cart_id, quantity):
     size = item.size
     
     stock = Stock.objects.get(product=product, size=size)
-    print(stock.quantity)
     item.quantity = quantity + 1
     if item.quantity > stock.quantity:
         messages.error(request, 'no stock available')
@@ -213,7 +209,6 @@ def decrement_quantity(request, cart_id, quantity):
         size = item.size
         
         stock = Stock.objects.get(product=product, size=size)
-        print(stock.quantity)
         item.quantity = quantity - 1
         item.save()
         return redirect(products_cart)

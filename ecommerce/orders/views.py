@@ -43,7 +43,6 @@ def checkout(request):
     cart_total = product_cart.objects.filter(user=request.user).aggregate(total_sum = Sum('total_price'))
     sub_total = product_cart.objects.filter(user=request.user).aggregate(total_sum = Sum('total_price'))
     razorpay_cash = cart_total['total_sum'] * 100
-    print(razorpay_cash)    
     razorpay_cash = int(razorpay_cash)
     
     public_coupons = Coupons.objects.filter(public_coupon = True)
@@ -131,9 +130,7 @@ def checkout(request):
     
     if request.method == 'POST':
         address_id = request.POST.get('address_id')
-        print(address_id, '-----------------------')
-        
-    
+            
     if request.method == 'POST':
         address_name = request.POST['address_name']
         address_phone = request.POST['address_phone']
@@ -219,7 +216,6 @@ def create_order(request):
                         total_amount = float(order.total_amount)
                         if wallet_balance > total_amount: 
                             wallet.balance = wallet_balance - float(order.total_amount)
-                            print(wallet_balance, wallet.balance, '----------------------------')
                             wallet_history = wallet_transaction.objects.create(user=user, order_id=order, amount=order.total_amount, status='debit')
                             wallet.save()
                             wallet_history.save()  
