@@ -171,6 +171,7 @@ def add_products(request):
         product_name = request.POST['product_name']
         description = request.POST['product_description']
         price = request.POST['product_price']
+        gender = request.POST.get('gender')
         image_1 = request.FILES.get('product_image_1')
         image_2 = request.FILES.get('product_image_2')
         image_3 = request.FILES.get('product_image_3')
@@ -182,7 +183,7 @@ def add_products(request):
         brand_id = request.POST['product_brand']
         brand = get_object_or_404(Brand, id=brand_id)
         
-        new_product = Products(product_name=product_name, category=category, brand=brand, description=description, price=price, image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4)
+        new_product = Products(product_name=product_name, category=category, brand=brand, description=description, price=price, gender=gender, image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4)
         new_product.save()
         
         # stocks with size

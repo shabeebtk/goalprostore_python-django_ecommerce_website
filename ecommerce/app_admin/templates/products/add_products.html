@@ -10,12 +10,12 @@
         <h4>add product</h4>
        <!-- Name input -->
         <div class="form-outline mb-4">
-          <input name="product_name" type="text" id="form4Example1" class="w-100 form-control"/>
+          <input name="product_name" type="text" id="form4Example1" class="w-100 form-control" required/>
           <label class="form-label" for="form4Example1">product name</label>
         </div>
         <div class="form-outline mb-4 d-flex gap-2">
             <div class="w-50">
-            <label class="form-label" for="form4Example1">category</label><br>
+            <label class="form-label fw-bold" for="form4Example1">category</label><br>
             <select name="product_category" style="height: 5vh; color: #4f4f4f;" class="browser-default custom-select w-100" id="category">
                 <option selected disabled>choose category</option>
                 {% for category in all_category %}
@@ -25,7 +25,7 @@
             </div>
 
             <div class="w-50">
-            <label class="form-label" for="form4Example1">brand</label>
+            <label class="form-label fw-bold" for="form4Example1">brand</label>
             <select name="product_brand" style="height: 5vh; color: #4f4f4f;" class="browser-default custom-select w-100" id="brand">
                 <option selected disabled>choose brand</option>
                 {% for brand in all_brands %}
@@ -35,15 +35,34 @@
             </div>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="form4Example1">description</label>
+            <label class="form-label fw-bold" for="form4Example1">description</label>
             <textarea class="form-control" name="product_description" id="form4Example1" cols="30" rows="4" id="form4Example1"></textarea>
         </div>
-        <div class="mb-5">
-            <label class="form-label" for="form4Example1">price</label> 
-            <input name="product_price" placeholder="₹" type="number" id="form4Example1" step="0.01" class="w-25 form-control"/> 
+        <div class="mb-4">
+            <label class="form-label fw-bold" for="form4Example1">price</label> 
+            <input name="product_price" placeholder="₹" type="number" id="form4Example1" step="0.01" class="w-25 form-control" required /> 
+        </div>
+
+        <!-- gender  -->
+        <div class="mb-4" id="gender_div">
+            <p class="mb-1 fw-bold">gender:</p>
+            <div class="d-flex gap-4">
+                <div>
+            <label for="male">male</label>
+            <input type="radio" name="gender" id="gender">
+        </div>
+        <div>
+            <label for="female">female</label>
+            <input type="radio" name="gender" id="gender">
+        </div>
+        <div>
+            <label for="both">both</label>
+            <input type="radio" name="gender" id="gender">
+        </div>
+        </div>
         </div>
         
-        <p>add stocks:</p>
+        <p class="fw-bold">add stocks:</p>
         <div class="form-outline mb-4">
             <div id="jersey_sizes" class="d-none">
             <div class="row">
@@ -100,26 +119,22 @@
     <div class="row">
             
         <div class=" mb-4 col-6">
-            <label class="form-label" for="form4Example1">product image 1</label>
+            <label class="form-label fw-bold" for="form4Example1">product image 1</label>
             <input class="form-control" name="product_image_1" type="file" id="imaged" required >
-        </div>
-
-        <div>
-            <img id="image" src="../static/img/mdb-favicon.ico" alt="">
         </div>
         
         <div class=" mb-4 col-6">
-            <label class="form-label" for="form4Example1">product image 2</label>
+            <label class="form-label fw-bold" for="form4Example1">product image 2</label>
             <input class="form-control" name="product_image_2" type="file" id="form4Example1" required >
         </div>
         
         <div class=" mb-4 col-6">
-            <label class="form-label" for="form4Example1">product image 3</label>
+            <label class="form-label fw-bold" for="form4Example1">product image 3</label>
             <input class="form-control" name="product_image_3" type="file" id="form4Example1" required >
         </div>
         
         <div class=" mb-4 col-6">
-            <label class="form-label" for="form4Example1">product image 4</label>
+            <label class="form-label fw-bold" for="form4Example1">product image 4</label>
             <input class="form-control" name="product_image_4" type="file" id="form4Example1" required >
         </div>
     </div>
@@ -148,7 +163,6 @@
         margin: 10px;
         border: 1px solid red;
     }
-    
 </style>
 
 
@@ -160,6 +174,7 @@
       var jerseySizesDiv = document.getElementById('jersey_sizes')
       var shoeSizesDiv = document.getElementById('shoe_sizes');
       var size_5 = document.getElementById('size_5');
+      var gender_div = document.getElementById('gender_div');
 
       jerseySizesDiv.classList.add('d-none');
       shoeSizesDiv.classList.add('d-none');
@@ -169,12 +184,17 @@
         jerseySizesDiv.classList.remove('d-none');
     } else if (selectedCategory === '4') {
         shoeSizesDiv.classList.remove('d-none');
-    }else{
+    }else if (selectedCategory == '3'){
         size_5.classList.remove('d-none');
+        gender_div.classList.add('d-none')
+    }
+    else{
+        jerseySizesDiv.classList.remove('d-none');
+        shoeSizesDiv.classList.remove('d-none');
+        size_5.classList.remove('d-none')
     }
 });
 
-    
   </script>
   
 {% endblock products %}
