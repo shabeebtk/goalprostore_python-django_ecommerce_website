@@ -15,6 +15,7 @@ def home(request):
     new_products = Products.objects.prefetch_related().filter(status = True).order_by('-id')[:4]
     print(new_products)
     all_products = Products.objects.prefetch_related().filter(status = True)[:8]
+    all_categories = Category.objects.all()
     if request.user.is_authenticated:   
         cart_count = product_cart.objects.filter(user=request.user).aggregate(count = Count('user'))
         cart_count = cart_count['count']
@@ -29,6 +30,7 @@ def home(request):
         'all_brands': all_brands,
         'new_products': new_products,
         'all_products' : all_products,
+        'all_categories':all_categories,
         'banners':banner,
         'check_user_signin':check_user_signin
     }   

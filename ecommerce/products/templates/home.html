@@ -63,35 +63,23 @@
                                     <a href="product.html" class="sf-with-ul">Category</a>
 
                                     <div class="megamenu megamenu-sm">
-                                        <div class="row no-gutters">
-                                            <div class="col-md-6">
                                                 <div class="menu-col">
-                                                    <div class="menu-title">Product Details</div><!-- End .menu-title -->
-                                                    <ul>
-                                                        <li><a href="product.html">Default</a></li>
-                                                        <li><a href="product-centered.html">Centered</a></li>
-                                                        <li><a href="product-extended.html"><span>Extended Info<span class="tip tip-new">New</span></span></a></li>
-                                                        <li><a href="product-gallery.html">Gallery</a></li>
-                                                        <li><a href="product-sticky.html">Sticky Info</a></li>
-                                                        <li><a href="product-sidebar.html">Boxed With Sidebar</a></li>
-                                                        <li><a href="product-fullwidth.html">Full Width</a></li>
-                                                        <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
+                                                    <div class="menu-title">All categories</div><!-- End .menu-title -->
+                                                    <ul class="w-100">
+
+                                                        {% for category in all_categories %}
+                                                        <li>
+                                                            <div class=" w-100">
+                                                            <a href="{% url 'shop' %}?category={{category.id}}">
+                                                                <h6>{{ category.category_name }}</h6>
+                                                            </a>
+                                                            <img src="{{ category.category_image.urls }}" alt="">
+                                                        </div>
+                                                        </li>
+                                                        {% endfor %}
+                        
                                                     </ul>
                                                 </div><!-- End .menu-col -->
-                                            </div><!-- End .col-md-6 -->
-
-                                            <div class="col-md-6">
-                                                <div class="banner banner-overlay">
-                                                    <a href="category.html">
-                                                        <img src="{% static 'images/menu/banner-2.jpg' %}" alt="Banner">
-
-                                                        <div class="banner-content banner-content-bottom">
-                                                            <div class="banner-title text-white">New Trends<br><span><strong>spring 2019</strong></span></div><!-- End .banner-title -->
-                                                        </div><!-- End .banner-content -->
-                                                    </a>
-                                                </div><!-- End .banner -->
-                                            </div><!-- End .col-md-6 -->
-                                        </div><!-- End .row -->
                                     </div><!-- End .megamenu megamenu-sm -->
                                 </li>
                                 <li>
@@ -265,7 +253,7 @@
                                     <div class="banner-content">
                                         <h4 class="banner-subtitle text-white"><a href="#">New Arrivals></h4><!-- End .banner-subtitle -->
                                         <h3 class="banner-title text-white"><a href="#"><strong>Football <br>Boots</strong> <br>up to 60% off</a></h3><!-- End .banner-title -->
-                                        <a href="#" class="text-white btn btn-outline-white banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
+                                        <a href="{% url 'shop' %}" class="text-white btn btn-outline-white banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
                                     </div><!-- End .banner-content -->
                                 </div><!-- End .banner -->
                             </div><!-- End .col-lg-4 -->
@@ -279,7 +267,7 @@
                                     <div class="banner-content">
                                         <h4 class="banner-subtitle text-white"><a href="#">Limited time only.</a></h4><!-- End .banner-subtitle -->
                                         <h3 class="banner-title text-white"><a href="#"><strong>Trainers <br> jerseys</strong> <br>40 -70% off</a></h3><!-- End .banner-title -->
-                                        <a href="#" class="btn btn-outline-white banner-link text-white">Shop Now <i class="icon-long-arrow-right"></i></a>
+                                        <a href="{% url 'shop' %}" class="btn btn-outline-white banner-link text-white">Shop Now <i class="icon-long-arrow-right"></i></a>
                                     </div><!-- End .banner-content -->
                                 </div><!-- End .banner -->
                             </div><!-- End .col-lg-4 -->
@@ -293,7 +281,7 @@
                                     <div class="banner-content text-white">
                                         <h4 class="banner-subtitle text-white"><a href="#">lets play</a></h4><!-- End .banner-subtitle -->
                                         <h3 class="banner-title text-white"><a href="#"><strong>Footballs <br>Accessories </strong> <br>from $6.99</a></h3><!-- End .banner-title -->
-                                        <a href="#" class="btn btn-outline-white banner-link text-white">Shop Now <i class="icon-long-arrow-right"></i></a>
+                                        <a href="{% url 'shop' %}" class="btn btn-outline-white banner-link text-white">Shop Now <i class="icon-long-arrow-right"></i></a>
                                     </div><!-- End .banner-content -->
                                 </div><!-- End .banner -->
                             </div><!-- End .col-lg-4 -->
@@ -589,7 +577,7 @@
                     <div class="col-md-6">
                         <div class="banner banner-overlay">
                             <a href="#">
-                                <img src="{% static 'images/demos/demo-8/banners/banner-5.jpg' %}" alt="Banner">
+                                <img src="{% static 'images/womens_banner.jpeg' %}" alt="Banner">
                             </a>
 
                             <div class="banner-content">
@@ -896,31 +884,7 @@
                             <li><a href="product-masonry.html">Masonry Sticky Info</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="#">Pages</a>
-                        <ul>
-                            <li>
-                                <a href="about.html">About</a>
-
-                                <ul>
-                                    <li><a href="about.html">About 01</a></li>
-                                    <li><a href="about-2.html">About 02</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="contact.html">Contact</a>
-
-                                <ul>
-                                    <li><a href="contact.html">Contact 01</a></li>
-                                    <li><a href="contact-2.html">Contact 02</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="login.html">Login</a></li>
-                            <li><a href="faq.html">FAQs</a></li>
-                            <li><a href="404.html">Error 404</a></li>
-                            <li><a href="coming-soon.html">Coming Soon</a></li>
-                        </ul>
-                    </li>
+                    
                     <li>
                         <a href="blog.html">Blog</a>
 
