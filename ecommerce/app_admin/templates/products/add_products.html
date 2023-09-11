@@ -64,7 +64,7 @@
         
         <p class="fw-bold">add stocks:</p>
         <div class="form-outline mb-4">
-            <div id="jersey_sizes" class="d-none">
+            <div id="jersey_sizes" class="">
             <div class="row">
             <div class="col-3">
                 <label for="">small</label> <br>    
@@ -87,7 +87,7 @@
         </div>
     
 
-        <div id="shoe_sizes" class="d-none">
+        <div id="shoe_sizes" class="">
         <div class="mb-5 row">
             
             <div class="col-3">
@@ -108,7 +108,7 @@
             </div>
         </div>
     </div>
-    <div id="size_5" class="d-none">
+    <div id="size_5" class="">
         <label for="">5</label> <br>
         <input style="color: #000000;" name="5_stock" type="number" min="0" id="form4Example1" class="w-25"/>
     </div>
@@ -164,37 +164,5 @@
         border: 1px solid red;
     }
 </style>
-
-
-<!-- ---------------------------------------------------------------------------  -->
-
-<script>
-    document.getElementById('category').addEventListener('change', function() {
-      var selectedCategory = this.value;
-      var jerseySizesDiv = document.getElementById('jersey_sizes')
-      var shoeSizesDiv = document.getElementById('shoe_sizes');
-      var size_5 = document.getElementById('size_5');
-      var gender_div = document.getElementById('gender_div');
-
-      jerseySizesDiv.classList.add('d-none');
-      shoeSizesDiv.classList.add('d-none');
-      size_5.classList.add('d-none')
-
-      if (selectedCategory === '1' || selectedCategory === '4' ) {
-        jerseySizesDiv.classList.remove('d-none');
-    } else if (selectedCategory === '3') {
-        shoeSizesDiv.classList.remove('d-none');
-    }else if (selectedCategory == '2'){
-        size_5.classList.remove('d-none');
-        gender_div.classList.add('d-none')
-    }
-    else{
-        jerseySizesDiv.classList.remove('d-none');
-        shoeSizesDiv.classList.remove('d-none');
-        size_5.classList.remove('d-none')
-    }
-});
-
-  </script>
   
 {% endblock products %}
