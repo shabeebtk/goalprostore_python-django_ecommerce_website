@@ -43,13 +43,14 @@ def shop(request, sort_order=None, search=False):
         cart_count = cart_count['count']
     else:
         cart_count = 0
-    
+        
     check_user_signin = request.user.is_authenticated
     selected_brands = request.GET.getlist('brands')
     selected_categories = request.GET.getlist('category')
     products_queryset = Products.objects.prefetch_related().filter(status=True)
     search_products = request.GET.get('search')
     price_range = request.GET.get('price_range')
+    selected_gender = request.GET.get('gender')
     
     if search_products:
         search_items = search_products.split()
@@ -70,7 +71,10 @@ def shop(request, sort_order=None, search=False):
     if selected_categories:
         selected_category_objects = Category.objects.filter(id__in=selected_categories)
         products_queryset = products_queryset.filter(category__in=selected_category_objects)
-    
+        
+    if selected_gender:
+        products_queryset = Products.objects.filter(gender = selected_gender)
+        
     if price_range:
         if price_range == 'under_500':
             products_queryset = products_queryset.filter(price__lt=500)
@@ -106,7 +110,6 @@ def shop(request, sort_order=None, search=False):
         'search' : search,
         'search_product': search_products,
         'check_user_signin':check_user_signin
-        
     }
     return render(request, 'shop.html', context)   
 
@@ -130,18 +133,21 @@ def product_profile(request, product_id):
                 quantity = int(quantity)
                 size = Size.objects.get(size = input_size)
                 stock = Stock.objects.get(product=product, size=size)
-                already_added = product_cart.objects.filter(user=request.user, product=product_id, size=size).exists()
-                if quantity > stock.quantity:
-                    quantity_error = 'no stock'
-                    return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'quantity_error':quantity_error, 'total_stock':total_stock, 'check_user_signin':check_user_signin})
-                    
-                if already_added is False:
-                    add_cart = product_cart.objects.create(user=request.user, product=product, quantity=quantity, size=size)
-                    add_cart.save()
-                    messages.success(request, 'product added to cart')
+                if request.user.is_authenticated:
+                    already_added = product_cart.objects.filter(user=request.user, product=product_id, size=size).exists()
+                    if quantity > stock.quantity:
+                        quantity_error = 'no stock'
+                        return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'quantity_error':quantity_error, 'total_stock':total_stock, 'check_user_signin':check_user_signin})
+                        
+                    if already_added is False:
+                        add_cart = product_cart.objects.create(user=request.user, product=product, quantity=quantity, size=size)
+                        add_cart.save()
+                        messages.success(request, 'product added to cart')
+                    else:
+                        already_added_error = 'product already added to cart'
+                        return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'already_added':already_added_error, 'total_stock':total_stock, 'check_user_signin':check_user_signin})
                 else:
-                    already_added_error = 'product already added to cart'
-                    return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'already_added':already_added_error, 'total_stock':total_stock, 'check_user_signin':check_user_signin})
+                    return redirect('user_signin')
             else:
                 select_size_error = 'select your size'
                 return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'select_size_error':select_size_error, 'total_stock':total_stock, 'check_user_signin':check_user_signin})

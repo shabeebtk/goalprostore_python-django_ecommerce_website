@@ -26,7 +26,6 @@ $(document).ready(function () {
     'use strict';
     owlCarousels();
     quantityInputs();
-    alert()
     // Header Search Toggle
 
     var $searchWrapper = $('.header-search-wrapper'),
