@@ -29,6 +29,7 @@
     <link rel="stylesheet" href="{% static 'css/plugins/owl-carousel/owl.carousel.css' %}">
     <link rel="stylesheet" href="{% static 'css/plugins/magnific-popup/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'css/plugins/jquery.countdown.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/skins/skin-demo-8.css' %}">
@@ -56,6 +57,7 @@
                         <a href="{% url 'home' %}" class="logo">
                             <img src="{% static 'images/Goal_pro_logo_1.png' %}" alt="Logo" width="105" height="25">
                         </a>
+                        
                     </div>
                     <div class="header-center">
                         <nav class="main-nav">
@@ -142,6 +144,7 @@
 
         <main class="main">
             <!-- banner-------- -->
+            
             <div id="bannerCarousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     {% for banner in banners %}
@@ -178,8 +181,8 @@
                                         <img src="{% static 'images/boot rect.png' %}" alt="Banner">
                                     </a>
 
-                                    <div class="banner-content">
-                                        <h4 class="banner-subtitle text-white"><a href="#">New Arrivals></h4><!-- End .banner-subtitle -->
+                                    <div class="banner-content offer_banner_animate">
+                                        <h4 class="banner-subtitle text-white "><a href="">New Arrivals></h4><!-- End .banner-subtitle -->
                                         <h3 class="banner-title text-white"><a href="{% url 'shop' %}"><strong>Football <br>Boots</strong> <br>up to 60% off</a></h3><!-- End .banner-title -->
                                         <a href="{% url 'shop' %}" class="text-white btn btn-outline-white banner-link">Shop Now <i class="icon-long-arrow-right"></i></a>
                                     </div><!-- End .banner-content -->
@@ -218,14 +221,14 @@
 
                    
                     <ul class="nav nav-pills nav-big nav-border-anim justify-content-center mb-2 mb-md-3" role="tablist">
-                        <li class="nav-item">
+                        <li class="nav-item brands_animate">
                             <a class="nav-link active" id="products-featured-link" data-toggle="tab" href="#products-featured-tab" role="tab" aria-controls="products-featured-tab" aria-selected="true">Our Brands</a>
                         </li>   
                     </ul>
                         <!-- brands ----- -->
-                        <div class="d-flex justify-content-md-center d-flex row">
+                        <div class="d-flex justify-content-md-center d-flex row ">
                         {% for brand in all_brands %}
-                        <div class="col-4 col-md-2 my-2 ">
+                        <div class="col-4 col-md-2 my-2 brands_animate">
                             <a href="{% url 'shop' %}?brands={{brand.id}}" class="brand ">
                                 <img style="width: 20vh; height: 10vh;" src="{{ brand.brand_image.url }}" alt="Brand Name">
                             </a>
@@ -242,7 +245,7 @@
             <div class="container">
                 <ul class="nav nav-pills nav-big nav-border-anim justify-content-center mb-2 mb-md-3" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" id="products-featured-link" data-toggle="tab" href="#products-featured-tab" role="tab" aria-controls="products-featured-tab" aria-selected="true">New Arrivals</a>
+                        <a class="nav-link active new_product_animate" id="products-featured-link" data-toggle="tab" href="#products-featured-tab" role="tab" aria-controls="products-featured-tab" aria-selected="true">New Arrivals</a>
                     </li>
                     
                 </ul>
@@ -253,7 +256,7 @@
                             <!-- new products  -->
                             
                             {% for new in new_products %}
-                            <div class="product product-2 col-6 col-md-3">
+                            <div class="product product-2 col-6 col-md-3 new_product_animate">
                                     <a href="{% url 'product_profile' new.id %}">
                                         <img src="{{ new.image_1.url }}" alt="Product image" class="product-image">
                                         <img src="{{ new.image_2.url }}" alt="Product image" class="product-image-hover">
@@ -535,8 +538,8 @@
             <div class="mb-5"></div><!-- End .mb-5 -->
 
             <div class="container recent-arrivals">
-                <div class="heading heading-flex align-items-center mb-3">
-                    <h2 class="title title-lg">All products</h2><!-- End .title -->
+                <div class="heading heading-flex align-items-center mb-3 all_product_animate">
+                    <h2 class="title title-lg ">All products</h2><!-- End .title -->
                     <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="recent-all-link" data-toggle="tab" href="#recent-all-tab" role="tab" aria-controls="recent-all-tab" aria-selected="true">All</a>
@@ -558,7 +561,7 @@
                         <div class="products">
                             <div class="row justify-content-center">
                                 {% for product in all_products %}
-                                <div class="col-6 col-md-4 col-lg-3">
+                                <div class="col-6 col-md-4 col-lg-3 all_product_animate">
 
                                     <!-- all products cards -->
                                     <div class="product product-2 text-center">
@@ -801,6 +804,43 @@
     <script src="{% static 'javascript/jquery.magnific-popup.min.js' %}"></script>
     <script src="{% static 'javascript/main.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function(){
+            $('.brands_animate').removeClass("d-none")
+            $('.new_product_animate').removeClass("d-none")
+            $('.offer_banner_animate').removeClass("d-none")
+
+            $('.brands_animate').waypoint(
+                function(){
+                    $('.brands_animate').addClass(
+                        "animate__animated animate__slideInUp"
+                    )
+            
+                },
+                { offset:"85%" }
+            )
+            $('.new_product_animate').waypoint(
+                function(){
+                    $('.new_product_animate').addClass(
+                        "animate__animated animate__slideInUp animate_slower"
+                    )
+            
+                },
+                { offset:"85%" }
+            )
+            $('.all_product_animate').waypoint(
+                function(){
+                    $('.all_product_animate').addClass(
+                        "animate__animated animate__slideInUp animate_slower"
+                    )
+            
+                },
+                { offset:"85%" }
+            )
+        })
+    </script>
   
     <!-- Main JS File -->
 </body>

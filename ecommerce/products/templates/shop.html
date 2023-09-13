@@ -26,6 +26,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/plugins/owl-carousel/owl.carousel.css' %}">
@@ -233,7 +234,7 @@
                             <div class="products mb-3">
                                 <div class="row">
                                     {% for product in search %}
-                                    <div class="col-6 col-md-4 col-lg-4">
+                                    <div class="col-6 col-md-4 col-lg-4 all_product_animate d-none">
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <!-- <span class="product-label label-new">New</span> -->
@@ -284,7 +285,7 @@
                             <div class="products mb-3">
                                 <div class="row">
                                     {% for product in all_products %}
-                                    <div class="col-6 col-md-4 col-lg-4">
+                                    <div class="col-6 col-md-4 col-lg-4 all_product_animate d-none">
                                         <div class="product product-7 text-center">
                                             <figure class="product-media">
                                                 <!-- <span class="product-label label-new">New</span> -->
@@ -798,6 +799,28 @@
     <script src="{% static 'javascript/nouislider.min.js' %}"></script>
     <!-- Main JS File -->
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js" integrity="sha512-ZKNVEa7gi0Dz4Rq9jXcySgcPiK+5f01CqW+ZoKLLKr9VMXuCsw3RjWiv8ZpIOa0hxO79np7Ec8DDWALM0bDOaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        $(document).ready(function(){
+           
+            $('.all_product_animate').waypoint(
+                function(){
+                    $('.all_product_animate').addClass(
+                        "animate__animated animate__zoomIn animate-faster"
+                    )
+                    $('.all_product_animate').removeClass(
+                        "d-none"
+                    )
+            
+                },
+                { offset:"85%" }
+            )
+        })
+    </script>
+
+
 </body>
 
 

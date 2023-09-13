@@ -177,6 +177,8 @@ def add_products(request):
         image_3 = request.FILES.get('product_image_3')
         image_4 = request.FILES.get('product_image_4')
         
+        print(gender)
+        
         category_id = request.POST['product_category']
         category = get_object_or_404(Category, id=category_id)
         
