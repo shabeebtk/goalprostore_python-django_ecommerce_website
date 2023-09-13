@@ -1,0 +1,66 @@
+{% extends "category/manage_category.html" %}
+
+{% block category %}
+<style>
+  #img-preview img {  
+    width: 20vh;
+    height: 20vh; 
+    display: block;   
+  }
+</style>
+
+<div class="d-flex flex-column align-items-center pt-5" style="width: 100%;">
+    <form style="width: 60%;" action="" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <h4>edit brand</h4>
+       <!-- Name input -->
+        <div class="form-outline mb-4">
+          <input name="brand_name" value="{{ edit_brand.brand_name }}" type="text" placeholder="category name" id="form4Example1" class="w-25 form-control"/>
+          <label class="form-label" for="form4Example1"></label>
+        </div>
+      
+        <!-- image input -->
+        <!-- <div id="img-preview" style="height: 20vh; width: 20vh;">
+
+        </div> -->
+        <div class="form-outline mb-4 d-flex ">
+          <div id="img-preview" style="height: 20vh; width: 20vh;">
+            <img style="width: 20vh;" src="{{ edit_brand.brand_image.url }}" alt="">
+          </div>
+          <input class="form-control" id="choose-file" name="brand_image" type="file" accept="image/*">
+        </div>
+        <!-- Submit button -->
+        <div class="d-flex gap-2 justify-content-end">
+        <input type="submit" class="w-25 btn btn-primary mb-4" value="update">
+      </form>
+
+        <div>
+          <a href="{% url 'manage_brands' %}"><button type="button" class=" btn btn-danger btn-block mb-4">X</button></a>
+        </div>
+        
+      </div>
+</div> 
+
+<!-- to preview choosen image -->
+<script>
+  const chooseFile = document.getElementById("choose-file");
+  const imgPreview = document.getElementById("img-preview");
+
+  chooseFile.addEventListener("change", function () {
+    getImgData();
+  });
+
+  function getImgData() {
+    const files = chooseFile.files[0];
+    if (files) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(files);
+      fileReader.addEventListener("load", function () {
+        imgPreview.style.display = "block";
+        imgPreview.innerHTML = '<img src="' + this.result + '" />';
+      });    
+    }
+  }
+</script>
+  
+{% endblock category %}

@@ -113,18 +113,40 @@ def shop(request, sort_order=None, search=False):
     }
     return render(request, 'shop.html', context)   
 
+# recently viewed products
+def recently_viewed( request, post_id ):
+    if not "recently_viewed" in request.session:
+        request.session["recently_viewed"] = []
+        request.session["recently_viewed"].append(post_id)
+    else:
+        if post_id in request.session["recently_viewed"]:
+            request.session["recently_viewed"].remove(post_id)
+        request.session["recently_viewed"].insert(0, post_id)
+        if len(request.session["recently_viewed"]) > 5:
+            request.session["recently_viewed"].pop()
+    print(request.session["recently_viewed"])
+    request.session.modified =True
+
 
 def product_profile(request, product_id):
     product = Products.objects.get(id = product_id)
     check_user_signin = request.user.is_authenticated
     size_stock = Stock.objects.filter(product = product_id, quantity__gt=0)
-    
+        
     if request.user.is_authenticated:   
         cart_count = product_cart.objects.filter(user=request.user).aggregate(count = Count('user'))
         cart_count = cart_count['count']
     else:
         cart_count = 0
     total_stock = Stock.objects.filter(product = product).aggregate(stock_count = Sum('quantity'))
+    
+    h = recently_viewed(request, product_id)  
+     
+    
+    recently_viewed_items = Products.objects.filter(pk__in=request.session.get("recently_viewed", [])).exclude(id = product_id)
+    
+    print(recently_viewed_items)
+                                                   
     if request.method == 'POST':
             quantity = request.POST['quantity']
             input_size = request.POST['size']
@@ -151,7 +173,7 @@ def product_profile(request, product_id):
             else:
                 select_size_error = 'select your size'
                 return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'select_size_error':select_size_error, 'total_stock':total_stock, 'check_user_signin':check_user_signin})
-    return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'total_stock':total_stock['stock_count'], 'check_user_signin':check_user_signin})
+    return render(request, 'product_profile.html', {'product': product, 'cart_count':cart_count, 'all_sizes':size_stock, 'total_stock':total_stock['stock_count'], 'check_user_signin':check_user_signin, 'recently_viewed_items':recently_viewed_items})
 
 @active_non_superuser_required
 def products_cart(request):

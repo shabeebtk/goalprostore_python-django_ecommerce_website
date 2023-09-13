@@ -39,7 +39,7 @@
           <a href="{% url 'manage_category' %}" class="list-group-item list-group-item-action py-2 ripple"><i
             class="fab fa-buromobelexperte fa-fw me-3"></i><span>Categories</span>
           </a>
-          <a href="" class="list-group-item list-group-item-action py-2 ripple"><i
+          <a href="{% url 'manage_brands' %}" class="list-group-item list-group-item-action py-2 ripple"><i
             class="fas fa-circle-check fa-fw me-3"></i><span>Brands</span>
           </a>
           <a href="{% url 'manage_coupons' %}" class="list-group-item list-group-item-action py-2 ripple"><i
@@ -280,16 +280,17 @@
   </section>
   <form action="{% url 'download_sales_report' %}" method="get">
 <div class="d-flex justify-content-center">
-  <div style="width: 80%; height: 10vh;" class="bg-light shadow row my-3 pt-3">
-    <div class="col-2">
-  </div>
-    <div class="col-3">
+  <div style="height: 10vh;" class="w-100 bg-light shadow row my-3 pt-3">
+    <div class="col-md-2 d-sm-none d-md-block">
+    </div>
+    <div class="col-md-3 col-4">
         <input class="form-control" type="date" name="start_date" id="start_date" required>
     </div>
-    <div class="col-3">
+    <div class="col-md-3 col-4">
       <input class="form-control" type="date" name="end_date" id="end_date" required>
     </div>
-    <div class="col-3">
+    
+    <div class="col-md-3 col-3">
       <button type="submit" class="btn btn-sm btn-success">Download report</button>
     </div>
  

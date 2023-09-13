@@ -17,13 +17,6 @@
   <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
     crossorigin="anonymous"></script>
-    <style>
-      #img-preview img {  
-        width: 100%;
-        height: 100%; 
-        display: block;   
-      }
-    </style>
 </head>
 
 <body>
@@ -33,28 +26,28 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-          <a href="{% url 'admin_home' %}" class="list-group-item list-group-item-action py-2 ripple ">
-            <i class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
+          <a href="{% url 'admin_home' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+            class="fas fa-chart-area fa-fw me-3"></i><span>Dashboard</span>
           </a>
-         <a href="{% url 'manage_users' %}" class="list-group-item list-group-item-action py-2 ripple "><i
-            class="fas fa-users fa-fw me-3"></i><span>Users</span>
+          <a href="{% url 'manage_users' %}" class="list-group-item list-group-item-action py-2 ripple">
+            <i class="fas fa-users fa-fw me-3"></i><span>Users</span>
           </a>
           <a href="{% url 'manage_products' %}" class="list-group-item list-group-item-action py-2 ripple">
             <i class="fas fa-chart-pie fa-fw me-3"></i><span>Products</span>
           </a>
-          <a href="{% url 'manage_category' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+          <a href="{% url 'manage_category' %}" class="list-group-item list-group-item-action py-2 ripple "><i
             class="fab fa-buromobelexperte fa-fw me-3"></i><span>Categories</span>
           </a>
-          <a href="{% url 'manage_brands' %}" class="list-group-item list-group-item-action py-2 ripple"><i
+          <a href="{% url 'manage_brands' %}" class="list-group-item list-group-item-action py-2 ripple active"><i
             class="fas fa-circle-check fa-fw me-3"></i><span>Brands</span>
           </a>
-          <a href="{% url 'manage_coupons' %}" class="list-group-item list-group-item-action py-2 ripple "><i
+          <a href="{% url 'manage_coupons' %}" class="list-group-item list-group-item-action py-2 ripple"><i
             class="fas fa-money-bill fa-fw me-3"></i><span>Coupons</span>
           </a>
           <a href="{% url 'manage_orders' %}" class="list-group-item list-group-item-action py-2 ripple">
             <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span>
           </a>
-          <a href="{% url 'manage_banners' %}" class="list-group-item list-group-item-action py-2 ripple active">
+          <a href="{% url 'manage_banners' %}" class="list-group-item list-group-item-action py-2 ripple">
             <i class="fas fa-chart-bar fa-fw me-3"></i><span>Banners</span>
           </a>
           <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
@@ -79,7 +72,12 @@
         <a class="navbar-brand" href="#">
           <h5>Goalpro admin</h5>
         </a>
-        
+        <!-- Search form -->
+        <form class="d-none d-md-flex input-group w-auto my-auto">
+          <input autocomplete="off" type="search" class="form-control rounded"
+            placeholder='Search (ctrl + "/" to focus)' style="min-width: 225px" />
+          <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+        </form>
 
         <!-- Right links -->
         <ul class="navbar-nav ms-auto d-flex flex-row">
@@ -91,7 +89,11 @@
               <span class="badge rounded-pill badge-notification bg-danger">1</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-              
+              <li><a class="dropdown-item" href="#">Some news</a></li>
+              <li><a class="dropdown-item" href="#">Another news</a></li>
+              <li>
+                <a class="dropdown-item" href="#">Something else</a>
+              </li>
             </ul>
           </li>
 
@@ -170,151 +172,61 @@
   </header>
   <!--Main Navigation-->
 
+
   <!--Main layout-->
   <main style="margin-top: 58px">
-        <div class="p-md-5">
-
-          {% block banner %}
-          <div class="d-flex justify-content-end">
-          <button type="button" data-mdb-toggle="modal" data-mdb-target="#exampleModal" class="btn btn-primary btn-sm mb-3 ">new banner +</button>
-        </div>
-
-        <!-- new banner modal  -->
-        <!-- Button trigger modal -->
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">create a banner</h5>
-                  <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-                </div>
-
-                <form action="{% url 'add_banner' %}" method="post" enctype="multipart/form-data">
-                  {% csrf_token %}
-                <div class="modal-body">
-                  <!-- -------body---  -->
-                  
-                  <div class="form-outline mb-4">
-                    <input name="title" value="" type="text" placeholder="category" id="form4Example1" class="form-control"/>
-                    <label class="form-label" for="form4Example1">title</label>
-                  </div>
+    <!-- manage category table  -->
+    {% block category %}
+    <div class="d-flex flex-column align-items-center" style="width: 100%;">
+    <table border="2" style="width: 70%;" class="wi table align-middle mb-0 bg-white">
+        <thead class="bg-light">
+          <tr>
+            <th>Brands</th>
+            <th></th>
+            <td>
+                <a href="{% url 'add_category' %}"><button type="button" class="btn btn-link btn-md btn-rounded">add category +</button></a>
+            </td>
+          </tr>
+          
+        </thead>
         
-                  <div class="form-outline mb-4">
-                    <textarea class="form-control" name="description" id=""></textarea>
-                    <label class="form-label" for="form4Example1">description</label>
-                  </div>
-
-                  <div class="form-outline mb-4 ">
-                    <div id="img-preview">
-                    </div>
-                    <input class="form-control" id="choose-file" name="image" type="file" accept="image/*">
-                  </div>
-
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-primary">Add</button>
-                </form>
-                </div>
+        <tbody>
+            {% for brand in all_brands %}
+          <tr>
+            <td>
+              <div class="d-flex align-items-center">
+                <img
+                   src="{{ brand.brand_image.url }}" 
+                    alt=""
+                    style="width: 15vh; height: 15vh; aspect-ratio: 1/1;"
+                    class=""
+                    />
               </div>
-            </div>
-          </div>
+            </td>
+            <td>
+                <div class="ms-3">
+                    <p class="fw-bold mb-1">{{ brand.brand_name }}</p>
+                  </div>
+            </td>
+            
+           
+            <td>
+              <a href="{% url 'edit_brands' brand.id %}"><button type="button" class="btn btn-link btn-sm btn-rounded" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                Edit
+              </button></a>
+              <a href="{% url 'delete_brand' brand.id %}"><button type="button" class="btn btn-link btn-sm btn-rounded">
+                Delete
+              </button></a>
+            </td>
+          </tr>
+          {% endfor %}
+          
+        </tbody>
+      </table>
+    </div>
+    {% endblock category %}
 
-
-            <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">image</th>
-                    <th scope="col">title</th>
-                    <th scope="col">description</th>
-                    <th scope="col">edit/delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    {% for banner in banners %}
-                    <tr>
-                        <th>
-                            <img class="w-100 h-100" src="{{ banner.image.url }}" alt="{{ banner.title }}">
-                        </th>
-                        <td>{{ banner.title }}</td>
-                        <td>{{ banner.description }}</td>
-                        <td style="display: flex; column-gap: 2vh;">
-                          <a href="{% url 'edit_banner' banner.id %}">
-                            <button class="btn btn-sm btn-primary">edit</button>
-                          </a>
-                          <form id="myForm">
-                            {% csrf_token %}
-                              <button class="btn btn-sm btn-danger unlist-button" data-banner-id="{{ banner.id }}" >
-                            {% if banner.active %}
-                                unlist
-                            {% else %}
-                                show
-                            {% endif %}
-                          </button>
-                        </form>
-                        </td>
-                      
-                    </tr>
-                    {% endfor %}                 
-                </tbody>
-              </table>
-              {% endblock banner %}
-        
-      </div>
   </main>
-
-  <!-- ajax banner -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function () {
-        $('.unlist-button').click(function (event) {
-          event.preventDefault();
-            var bannerId = $(this).data('banner-id');
-            var csrfToken = $('input[name=csrfmiddlewaretoken]').val();
-            $.ajax({
-                url: '{% url "show_unlist_banner" %}',
-                type: 'POST',
-                headers : {'X-CSRFToken': csrfToken},
-                data: {
-                    banner_id: bannerId
-                },
-                success: function (data) {
-                    if (data.success) {
-                        console.log('success')
-                    } else {
-                        console.log('banner failed')
-                    }
-                },
-                error: function () {
-                    console.log('unable to update banner')
-                }
-            });
-        });
-    });
-</script>
-
-<script>
-  const chooseFile = document.getElementById("choose-file");
-  const imgPreview = document.getElementById("img-preview");
-
-  chooseFile.addEventListener("change", function () {
-    getImgData();
-  });
-
-  function getImgData() {
-    const files = chooseFile.files[0];
-    if (files) {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(files);
-      fileReader.addEventListener("load", function () {
-        imgPreview.style.display = "block";
-        imgPreview.innerHTML = '<img src="' + this.result + '" />';
-      });    
-    }
-  }
-</script>  
 
   <!--Main layout-->
   <!-- MDB -->

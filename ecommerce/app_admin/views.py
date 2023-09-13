@@ -182,7 +182,7 @@ def add_products(request):
         
         brand_id = request.POST['product_brand']
         brand = get_object_or_404(Brand, id=brand_id)
-        
+                
         new_product = Products(product_name=product_name, category=category, brand=brand, description=description, price=price, gender=gender, image_1=image_1, image_2=image_2, image_3=image_3, image_4=image_4)
         new_product.save()
         
@@ -283,10 +283,12 @@ def edit_product(request, product_id):
         edit.product_name = request.POST['product_name']
         edit.description = request.POST['product_description']
         edit.price = request.POST['product_price']
+        edit.gender = request.POST.get('gender')
         image_1 = request.FILES.get('product_image_1')
         image_2 = request.FILES.get('product_image_2')
         image_3 = request.FILES.get('product_image_3')
         image_4 = request.FILES.get('product_image_4')
+        
         if image_1 is not None:
             edit.image_1 = request.FILES.get('product_image_1')
             
@@ -377,8 +379,7 @@ def product_show(request, product_id):
     return redirect(manage_products)
     
     
-    
-# category manage ---
+# manage category 
 @superuser_required
 def manage_category(request):
     all_category = Category.objects.prefetch_related()
@@ -406,7 +407,9 @@ def edit_category(request, category_id):
     edit = Category.objects.get(id = category_id)
     if request.method == 'POST':
         edit.category_name = request.POST.get('category_name')
-        edit.category_image = request.FILES.get('category_image')
+        image = request.FILES.get('category_image')
+        if image:           
+            edit.category_image = image
         edit.save()
         return redirect(manage_category)
     return render(request, 'category/edit_category.html', {'edit_category':edit})
@@ -415,7 +418,37 @@ def edit_category(request, category_id):
 # manage brands
 @superuser_required
 def manage_brands(request):
-    pass    
+    all_brands = Brand.objects.prefetch_related()
+    return render(request, 'brands/manage_brands.html', {'all_brands': all_brands})
+    
+@superuser_required
+def delete_brands(request, brand_id):
+    delete_brand = Brand.objects.get(id = brand_id)
+    delete_brand.delete()
+    return redirect(manage_brands)
+
+@superuser_required
+def add_brands(request):
+    if request.method == "POST":
+        brand = brand()
+        brand.brand_name = request.POST.get('brand_name')
+        brand.brand_image = request.FILES.get('brand_image')
+        brand.save()
+        return redirect(manage_brands)
+    return render(request, 'brands/add_brands.html')
+
+@superuser_required
+def edit_brands(request, brand_id):
+    edit = Brand.objects.get(id = brand_id)
+    if request.method == 'POST':
+        edit.brand_name = request.POST.get('brand_name')
+        image = request.FILES.get('brand_image')
+        if image:    
+            edit.brand_image = request.FILES.get('brand_image')
+        print(edit.brand_name)
+        edit.save()
+        return redirect(manage_brands)
+    return render(request, 'brands/edit_brands.html', {'edit_brand':edit})
 
 
 

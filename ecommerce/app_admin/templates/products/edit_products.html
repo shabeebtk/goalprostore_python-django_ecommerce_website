@@ -49,6 +49,26 @@
             <small>price</small>
             <input value="{{ edit_product.price }}" name="product_price" type="number" id="form4Example1" step="0.01" class="w-100 form-control"/>
         </div>
+
+
+        <!-- gender  -->
+        <div class="mb-4" id="gender_div">
+          <p class="mb-1 fw-bold">gender:</p>
+          <div class="d-flex gap-4">
+              <div>
+          <label for="male">male</label>
+          <input type="radio" value="Male" {% if edit_product.gender == 'Male' %}checked {% endif %} name="gender" id="gender">
+      </div>
+      <div>
+          <label for="female">female</label>
+          <input type="radio" value="Female" {% if edit_product.gender == 'Female' %}checked {% endif %} name="gender" id="gender">
+      </div>
+      <div>
+          <label for="both">both</label>
+          <input type="radio" value="Both" {% if edit_product.gender == 'Both' %}checked {% endif %} name="gender" id="gender">
+      </div>
+      </div>
+      </div>
         
 
         <!-- stock  -->

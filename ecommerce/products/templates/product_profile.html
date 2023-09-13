@@ -46,7 +46,7 @@
                         </button>
 
                         <a href="{% url 'home' %}" class="logo">
-                            <img style="width: 20vh;" src="{% static 'images/goal_pro_logo_1.png' %}" alt="goalpro Logo" width="105" height="25">
+                            <img src="{% static 'images/Goal_pro_logo_1.png' %}" alt="Logo" width="105" height="25">
                         </a>
 
                         <nav class="main-nav">
@@ -183,8 +183,10 @@
 
                                     <div class="details-filter-row details-row-size">
                                         <label for="qty">Qty:</label>
-                                        <div class="product-details-quantity">
-                                            <input type="number" name="quantity" class="form-control" value="1" min="1" step="1" data-decimals="0" required>
+                                        <div class="product-details-quantity d-flex ">
+                                            <span class="counter-button minus border border-2 p-2 px-3"><i class="fas fa-minus"></i></span>
+                                            <input type="number" name="quantity" class="form-control" value="1" min="1" step="1" data-decimals="0" required >
+                                            <span class="counter-button plus border border-2 p-2 px-3"><i class="fas fa-plus"></i></span>
                                         </div><!-- End .product-details-quantity -->
                                     </div><!-- End .details-filter-row -->
 
@@ -238,7 +240,6 @@
                                 {% for message in messages %}
                                   
                                 {% if message.tags == 'success' %}
-                                <p>hello</p>
                                     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                                     <script>
                                         $(document).ready(function(){
@@ -393,7 +394,33 @@
                         </div><!-- End .tab-content -->
                     </div><!-- End .product-details-tab -->
 
-                    <h2 class="title text-center mb-4">You May Also Like</h2><!-- End .title text-center -->
+                    <h2 class="title text-center mb-4">recenty viewed</h2><!-- End .title text-center -->
+                    <div class="row">
+                    {% for product in recently_viewed_items %}
+                            <div class="product product-2 col-6 col-md-3">
+                                    <a href="{% url 'product_profile' product.id %}">
+                                        <img src="{{ product.image_1.url }}" alt="Product image" class="product-image">
+                                        <img src="{{ product.image_2.url }}" alt="Product image" class="product-image-hover">
+                                    </a>
+
+                                    <div class="product-action-vertical">
+                                        <a href="#" class="btn-product-icon btn-wishlist btn-expandable" title="Add to wishlist"><span>add to wishlist</span></a>
+                                    </div><!-- End .product-action -->              
+
+                                <div class="product-body">
+                                    <div class="product-cat">
+                                        <a href="#">{{ product.category }}</a>
+                                    </div><!-- End .product-cat -->
+                                    <h3 class="product-title"><a href="{% url 'product_profile' product.id %}">{{ product.product_name }}</a></h3><!-- End .product-title -->
+                                    <div class="product-price">
+                                        ₹{{ product.price }}
+                                        {{ product.id }}
+                                    </div><!-- End .product-price -->
+                                </div><!-- End .product-body -->
+                            </div><!-- End .product -->
+                            {% endfor %}
+                        </div>
+
 
                     <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{
@@ -818,6 +845,26 @@
         });
     </script>
     <!-- ---- end change product image on hover ---->
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const inputElement = document.querySelector('input[name="quantity"]');
+          const minusButton = document.querySelector('.counter-button.minus');
+          const plusButton = document.querySelector('.counter-button.plus');
+      
+          minusButton.addEventListener("click", function () {
+            if (inputElement.value > 1) {
+              inputElement.value = parseInt(inputElement.value) - 1;
+            }
+          });
+      
+          plusButton.addEventListener("click", function () {
+            inputElement.value = parseInt(inputElement.value) + 1;
+          });
+        });
+      </script>
+    
 </body>
 
 
