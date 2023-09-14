@@ -65,7 +65,7 @@ def sent_otp(request):
     request.session['otp'] = OTP
     subject = 'Goal pro OTP verification'
     message = f'you OTP is {OTP} to confirm your email'
-    send_mail(subject, message, settings.EMAIL_HOST_USER, [request.session['email']], fail_silently=False)
+    #send_mail(subject, message, settings.EMAIL_HOST_USER, [request.session['email']], fail_silently=False)
     return render(request, 'email_otp.html')
 
 def email_otp_verification(request):
